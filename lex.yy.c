@@ -363,8 +363,8 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[21] =
     {   0,
-        0,    0,   16,   14,   12,   13,    9,   10,    4,    2,
-        3,    5,    1,   11,    6,   12,    7,    1,    8,    0
+       12,   12,   16,   14,   12,   13,    9,   10,    4,    2,
+        3,    5,    1,   11,    6,   12,    7,    8,    1,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -407,8 +407,8 @@ static const YY_CHAR yy_meta[13] =
 
 static const flex_int16_t yy_base[21] =
     {   0,
-        0,    0,   21,   22,   18,   22,   22,   22,   22,    6,
-        9,   22,    8,   22,   22,   13,   22,    4,   22,   22
+        0,    0,   19,   20,   16,   20,   20,   20,   20,   10,
+        8,   20,    5,   20,   20,   12,   20,   20,    3,   20
     } ;
 
 static const flex_int16_t yy_def[21] =
@@ -417,20 +417,20 @@ static const flex_int16_t yy_def[21] =
        20,   20,   20,   20,   20,   20,   20,   20,   20,    0
     } ;
 
-static const flex_int16_t yy_nxt[35] =
+static const flex_int16_t yy_nxt[33] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
-       14,   15,   17,   18,   16,   18,   19,   18,   18,   16,
-       20,    3,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20
+       14,   15,   19,   16,   19,   18,   17,   16,   20,    3,
+       20,   20,   20,   20,   20,   20,   20,   20,   20,   20,
+       20,   20
     } ;
 
-static const flex_int16_t yy_chk[35] =
+static const flex_int16_t yy_chk[33] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,   10,   18,   16,   10,   11,   13,   11,    5,
-        3,   20,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20
+        1,    1,   19,   16,   13,   11,   10,    5,    3,   20,
+       20,   20,   20,   20,   20,   20,   20,   20,   20,   20,
+       20,   20
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -706,7 +706,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 22 );
+		while ( yy_base[yy_current_state] != 20 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];

@@ -6,7 +6,7 @@ void other_error();
 
 %%
 
-[-+]?[0-9]+	{ yylval = atoi(yytext); return (NUMBER); }
+[0-9]+	{ yylval = atoi(yytext); return (NUMBER); }
 "+" 	{ return (PLUS); }
 "-" 	{ return (MINUS); }
 "*" 	{ return (STAR); }
@@ -18,7 +18,7 @@ void other_error();
 ")" 	{ return (RBrack); }
 ";" 	{ return (SEMICOLON); }
 
-[ \t]+	{ }
+[ \t]*	{ }
 \n 		{ return (EOL); }
 .		{ other_error(); return (OTHER); }
 
