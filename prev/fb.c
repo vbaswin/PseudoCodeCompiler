@@ -10,8 +10,7 @@ struct symbol symtab[NHASH];
 
 /* symbol table */
 /* hash a symbol */
-static unsigned
-symhash(char *sym) {
+static unsigned symhash(char *sym) {
 	unsigned int hash = 0;
 	unsigned c;
 
