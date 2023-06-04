@@ -1,57 +1,86 @@
-%{
-#include <stdio.h>
-#include <math.h>
+/* calculator with AST */
 
-int yylex();
-int yyerror(char *s);
+%{
+#  include <stdlib.h>
+#  include "fb.h"
 %}
 
-%token PLUS MINUS STAR BACKSLASH EXPO UMINUS INC DEC 
-%token NUMBER 
-%token EOL LBrack RBrack SEMICOLON OTHER
+%union {
+  struct ast *a;
+  double d;
+  struct symbol *s;		/* which symbol */
+  struct symlist *sl;
+  int fn;			/* which function */
+}
+
+/* declare tokens */
+%token <d> NUMBER
+%token <s> NAME
+%token <fn> FUNC
+%token EOL
+
+%token IF THEN ELSE WHILE DO LET
+
+
+%nonassoc <fn> CMP
+%right '='
+%left '+' '-'
+%left '*' '/'
+%nonassoc '|' UMINUS
+
+%type <a> exp stmt list explist
+%type <sl> symlist
+
+%start calclist
 
 %%
 
-calc:
-	| calc exp EOL 		{ printf("Result = %d\n", $2)}
-	;
+stmt: IF exp THEN list           { $$ = newflow('I', $2, $4, NULL); }
+   | IF exp THEN list ELSE list  { $$ = newflow('I', $2, $4, $6); }
+   | WHILE exp DO list           { $$ = newflow('W', $2, $4, NULL); }
+   | exp
+;
 
-exp:
-		exp PLUS factor 			{ $$ = $1 + $3; }
-	| 	exp MINUS factor			{ $$ = $1 - $3; }
-	| 	factor
-	;
+list: /* nothing */ { $$ = NULL; }
+   | stmt ';' list { if ($3 == NULL)
+	                $$ = $1;
+                      else
+			$$ = newast('L', $1, $3);
+                    }
+   ;
 
-factor:
-		factor STAR group 			{ $$ = $1 * $3; }
-	| 	factor BACKSLASH group 		{ $$ = $1 / $3; }
-	| 	group
-	;
+exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
+   | exp '+' exp          { $$ = newast('+', $1,$3); }
+   | exp '-' exp          { $$ = newast('-', $1,$3);}
+   | exp '*' exp          { $$ = newast('*', $1,$3); }
+   | exp '/' exp          { $$ = newast('/', $1,$3); }
+   | '|' exp              { $$ = newast('|', $2, NULL); }
+   | '(' exp ')'          { $$ = $2; }
+   | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
+   | NUMBER               { $$ = newnum($1); }
+   | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
+   | NAME                 { $$ = newref($1); }
+   | NAME '=' exp         { $$ = newasgn($1, $3); }
+   | NAME '(' explist ')' { $$ = newcall($1, $3); }
+;
 
-group: 
-		inc_dec
-	| 	inc_dec EXPO group 			{ $$ = pow($1, $3)}
+explist: exp
+ | exp ',' explist  { $$ = newast('L', $1, $3); }
+;
+symlist: NAME       { $$ = newsymlist($1, NULL); }
+ | NAME ',' symlist { $$ = newsymlist($1, $3); }
+;
 
-inc_dec:
-		INC neg 				{ $$ = $2 + 1}
-	|	DEC neg					{ $$ = $2 - 1}
-	| 	neg
+calclist: /* nothing */
+  | calclist stmt EOL {
+    if(debug) dumpast($2, 0);
+     printf("= %4.4g\n> ", eval($2));
+     treefree($2);
+    }
+  | calclist LET NAME '(' symlist ')' '=' list EOL {
+                       dodef($3, $5, $8);
+                       printf("Defined %s\n> ", $3->name); }
 
-neg:	
-		MINUS term %prec UMINUS		{$$ = -$2}
-	|	term
-
-term:
-		NUMBER
-	| 	LBrack exp RBrack 			{ $$ = $2 }
-	;
+  | calclist error EOL { yyerrok; printf("> "); }
+ ;
 %%
-
-int yyerror(char *s) {
-	fprintf(stderr, "Parser error: %s\n", s);
-}
-
-int main() {
-	yyparse();
-	return 0;
-}

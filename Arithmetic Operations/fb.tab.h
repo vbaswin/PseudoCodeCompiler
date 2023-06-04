@@ -39,50 +39,43 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUMBER = 258,
-     NAME = 259,
-     FUNC = 260,
-     EOL = 261,
-     IF = 262,
-     THEN = 263,
-     ELSE = 264,
-     WHILE = 265,
-     DO = 266,
-     LET = 267,
-     CMP = 268,
-     UMINUS = 269
+     PLUS = 258,
+     MINUS = 259,
+     STAR = 260,
+     BACKSLASH = 261,
+     EXPO = 262,
+     UMINUS = 263,
+     INC = 264,
+     DEC = 265,
+     NUMBER = 266,
+     EOL = 267,
+     LBrack = 268,
+     RBrack = 269,
+     SEMICOLON = 270,
+     OTHER = 271
    };
 #endif
 /* Tokens.  */
-#define NUMBER 258
-#define NAME 259
-#define FUNC 260
-#define EOL 261
-#define IF 262
-#define THEN 263
-#define ELSE 264
-#define WHILE 265
-#define DO 266
-#define LET 267
-#define CMP 268
-#define UMINUS 269
+#define PLUS 258
+#define MINUS 259
+#define STAR 260
+#define BACKSLASH 261
+#define EXPO 262
+#define UMINUS 263
+#define INC 264
+#define DEC 265
+#define NUMBER 266
+#define EOL 267
+#define LBrack 268
+#define RBrack 269
+#define SEMICOLON 270
+#define OTHER 271
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 8 "fb.y"
-{
-  struct ast *a;
-  double d;
-  struct symbol *s;		/* which symbol */
-  struct symlist *sl;
-  int fn;			/* which function */
-}
-/* Line 1529 of yacc.c.  */
-#line 85 "fb.tab.h"
-	YYSTYPE;
+typedef int YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
