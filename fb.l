@@ -1,7 +1,7 @@
 %option noyywrap
 %{
-#include "compiler.h"
-#include "grammar.tab.h"
+#include "fb.h"
+#include "fb.tab.h"
 %}
 
 %%

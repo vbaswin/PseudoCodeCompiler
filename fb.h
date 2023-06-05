@@ -3,8 +3,7 @@ void yyerror(char *s);
 int yyparse();
 int yylex();
 
-struct symbol 
-{
+struct symbol {
 	double *arrHead;
 	double value;
 
@@ -16,18 +15,15 @@ struct symbol
 };
 
 #define NHASH 9997
-struct symbol symbolTable[NHASH];
 
 struct symbol *lookUp(char *);
 
-struct symbolList 
-{
+struct symbolList {
 	struct symbol *symbol;
 	struct symbolList *next;
 };
 
-struct numList 
-{
+struct numList {
 	double number;
 
 	struct numList *next;
@@ -36,23 +32,20 @@ struct numList
 struct symbolList *newSymbolList(struct symbol *symbol, struct symbolList *next);
 struct numList *newNumList(double number, struct numList *numList);
 
-struct ast 
-{
+struct ast {
 	int nodeType;
 
 	struct ast *left;
 	struct ast *right;
 };
 
-struct printCall 
-{
+struct printCall {
 	int nodeType;
 
 	struct ast *left;
 };
 
-struct flow 
-{
+struct flow {
 	int nodeType;
 
 	struct ast *cond;
@@ -60,22 +53,19 @@ struct flow
 	struct ast *evalList;
 };
 
-struct numVal 
-{
+struct numVal {
 	int nodeType;
 
 	double number;
 };
 
-struct symbolReference
-{
+struct symbolReference {
 	int nodeType;
 
 	struct symbol *symbol;
 };
 
-struct symbolReferenceArr 
-{
+struct symbolReferenceArr {
 	int nodeType;
 
 	struct symbol *symbol;
@@ -83,8 +73,7 @@ struct symbolReferenceArr
 	struct ast *index;
 };
 
-struct symbolAssign 
-{
+struct symbolAssign {
 	int nodeType;
 
 	struct symbol *symbol;
@@ -92,26 +81,23 @@ struct symbolAssign
 	struct ast *v;
 };
 
-struct symbolAssignArr 
-{
+struct symbolAssignArr {
 	int nodeType;
-	
+
 	struct symbol *symbol;
 
 	struct ast *index;
 	struct ast *v;
 };
 
-struct symbolInitialArr 
-{
+struct symbolInitialArr {
 	int nodeType;
 
 	struct symbol *symbol;
 	struct numList *numList;
 };
 
-struct declaration 
-{
+struct declaration {
 	int nodeType;
 
 	struct symbolList *symbolList;
@@ -119,8 +105,7 @@ struct declaration
 	char type;
 };
 
-struct declarationArr
-{
+struct declarationArr {
 	int nodeType;
 	struct symbolList *symbolList;
 	int length;
@@ -145,4 +130,3 @@ struct ast *newInitialArr(struct symbol *symbol, struct numList *numList);
 double eval(struct ast *);
 
 void treeFree(struct ast *);
-
