@@ -1,0 +1,6 @@
+program sort (arr, i, j, temp, x) ;
+var i, j, temp, x: integer;
+begin
+i = 1;
+end
+.

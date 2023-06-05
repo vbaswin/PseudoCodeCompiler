@@ -45,9 +45,9 @@ declaration: VAR symbolList ':' STD_TYPE	{ $$ = newDeclaration($2, $4); }
 	{ $$ = newDeclarationArr($2, $6, $8, $11); }
 	;
 
-statement: IF expression THEN '{' statementList '}'		{ $$ = newFlow('I', $2, $5, NULL); }
+statement: IF expression THEN '{' statementList '}'							{ $$ = newFlow('I', $2, $5, NULL); }
 	| IF expression THEN '{' statementList '}' ELSE '{' statementList '}'	{ $$ = newFlow('I', $2, $5, $9); }
-	| WHILE expression DO '{' statementList '}'	{ $$ = newFlow('W', $2, $5, NULL); }
+	| WHILE expression DO '{' statementList '}'								{ $$ = newFlow('W', $2, $5, NULL); }
 	| expression
 	;
 
