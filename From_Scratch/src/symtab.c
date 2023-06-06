@@ -21,7 +21,6 @@ struct symbol *newassign(char *str, double d) {
 	sp->value = d;
 }
 
-/*
 void printrefs() {
 	struct ref *temp;
 	int max_sz = -100000, sz;
@@ -35,15 +34,11 @@ void printrefs() {
 	for (int i = 0; i < cur; ++i) {
 		printf("%-*s", max_sz, symtab[i].name);
 
-		printf("\t->");
-
-		for (temp = symtab[i].reflist; temp != NULL; temp = temp->next)
-			printf(" %d", temp->lineno);
-
-		printf("\n");
+		printf("\t->\t%4.4g\n", symtab[i].value);
 	}
 }
 
+/*
 void freeSymtab() {
 	for (int i = 0; i < cur; ++i) {
 		free(symtab[i].name);

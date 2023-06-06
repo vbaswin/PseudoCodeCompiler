@@ -1,0 +1,10 @@
+a
+a + b
+a = 5.4
+b = 200
+c = a * b
+
+aswin = -900
+aryan = 40
+ps = 3
+asw = aswin + aryan * ps

@@ -43,3 +43,14 @@ newcmp(int cmptype, struct ast *l, struct ast *r) {
 	a->r = r;
 	return a;
 }
+
+struct ast *newIf(int nodetype, struct ast *cond, struct ast *tl, struct ast *elsif, struct ast *el) {
+	struct astIf *a = malloc(sizeof(struct astIf));
+
+	a->nodetype = nodetype;
+	a->cond = cond;
+	a->tl = tl;
+	a->elif = elsif;
+	a->el = el;
+	return (struct ast *)a;
+}

@@ -42,16 +42,30 @@
      NUM = 258,
      NAME = 259,
      EOL = 260,
-     CMP = 261,
-     UMINUS = 262
+     IF = 261,
+     THEN = 262,
+     ELSE = 263,
+     END = 264,
+     WHILE = 265,
+     DO = 266,
+     LET = 267,
+     CMP = 268,
+     UMINUS = 269
    };
 #endif
 /* Tokens.  */
 #define NUM 258
 #define NAME 259
 #define EOL 260
-#define CMP 261
-#define UMINUS 262
+#define IF 261
+#define THEN 262
+#define ELSE 263
+#define END 264
+#define WHILE 265
+#define DO 266
+#define LET 267
+#define CMP 268
+#define UMINUS 269
 
 
 
@@ -66,7 +80,7 @@ typedef union YYSTYPE
 	int fn;
 }
 /* Line 1529 of yacc.c.  */
-#line 70 "obj/fb.tab.h"
+#line 84 "obj/fb.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

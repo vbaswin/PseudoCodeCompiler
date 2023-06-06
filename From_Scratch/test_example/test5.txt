@@ -1,0 +1,7 @@
+a = 20
+b = 40
+if (a + b) then if (b > a) then a end if end if
+
+if (a > b) then a else b end if 
+
+if (a > b) then a else if ( a > b) then a else a end if end if

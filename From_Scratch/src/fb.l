@@ -31,6 +31,15 @@
 ">="    { yylval.fn = 5; return CMP; }
 "<="    { yylval.fn = 6; return CMP; }
 
+	 /* keywords */
+"if"    { return IF; }
+"then"  { return THEN; }
+"else"  { return ELSE; }
+"end"	{ return END; }
+"while" { return WHILE; }
+"do"    { return DO; }
+"let"   { return LET;}
+
 	/* number */
 [0-9]+("."?[0-9]+)? 	{ yylval.d = atof(yytext); return NUM; }
 

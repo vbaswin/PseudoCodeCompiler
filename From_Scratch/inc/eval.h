@@ -6,5 +6,6 @@
 #include "symtab.h"
 
 double eval(struct ast *a);
+void displayAst(struct ast *a, int level);
 
 #endif

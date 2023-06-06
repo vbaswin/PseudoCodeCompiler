@@ -1,4 +1,5 @@
 #include "../inc/fb.h"
+#include "../inc/symtab.h"
 #include <stdarg.h>
 
 void yyerror(char *s, ...) {
@@ -18,6 +19,7 @@ int main(int argc, char **argv) {
 		}
 	}
 	yyparse();
+	// printrefs();
 
 	return 0;
 }
