@@ -38,7 +38,8 @@
 "end"	{ return END; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"let"   { return LET;}
+"for" { return FOR; }
+"to"	{ return TO; }
 
 	/* number */
 [0-9]+("."?[0-9]+)? 	{ yylval.d = atof(yytext); return NUM; }
@@ -46,9 +47,8 @@
 ([a-zA-Z]+[_a-zA-Z0-9]*) 	{ yylval.s = lookup(yytext); return NAME; }
 
 [ \t]+
-^[ \t]*\n
+\n
 
-\n 		{ return EOL; }
 .	{ yyerror("Mystery character %c\n", *yytext); }
 
 <<EOF>>	{ return EOF; }

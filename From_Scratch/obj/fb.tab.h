@@ -48,9 +48,10 @@
      END = 264,
      WHILE = 265,
      DO = 266,
-     LET = 267,
-     CMP = 268,
-     UMINUS = 269
+     FOR = 267,
+     TO = 268,
+     CMP = 269,
+     UMINUS = 270
    };
 #endif
 /* Tokens.  */
@@ -63,9 +64,10 @@
 #define END 264
 #define WHILE 265
 #define DO 266
-#define LET 267
-#define CMP 268
-#define UMINUS 269
+#define FOR 267
+#define TO 268
+#define CMP 269
+#define UMINUS 270
 
 
 
@@ -80,7 +82,7 @@ typedef union YYSTYPE
 	int fn;
 }
 /* Line 1529 of yacc.c.  */
-#line 84 "obj/fb.tab.h"
+#line 86 "obj/fb.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -53,6 +53,30 @@ double eval(struct ast *a) {
 		}
 		break;
 
+	case 'L':
+		eval(a->l);
+		v = eval(a->r);
+		break;
+
+	case 'W':
+		v = 0.0; /* a default value */
+
+		if (((struct astWh *)a)->tl) {
+			while (eval(((struct astWh *)a)->cond) != 0)
+				v = eval(((struct astWh *)a)->tl);
+		}
+		break; /* last value is value */
+
+	case 'F':
+		v = 0.0; /* a default value */
+
+		if (((struct astFor *)a)->tl) {
+			for (int i = ((struct astFor *)a)->start; i < ((struct astFor *)a)->end; ++i)
+				v = eval(((struct astFor *)a)->tl);
+		}
+		break;
+
+
 	default: printf("internal error: bad node %c\n", a->nodetype);
 	}
 	return v;
@@ -60,7 +84,6 @@ double eval(struct ast *a) {
 
 void displayAst(struct ast *a, int level) {
 	printf("%*s", 4 * level, ""); /* indent to this level */
-	level++;
 
 	if (!a) {
 		printf("NULL\n");
@@ -81,7 +104,7 @@ void displayAst(struct ast *a, int level) {
 		/* assignment */
 	case '=':
 		printf("= %s\n", ((struct symref *)a)->s->name);
-		displayAst(((struct symasgn *)a)->v, level);
+		displayAst(((struct symasgn *)a)->v, level + 1);
 		return;
 
 		/* expressions */
@@ -90,64 +113,72 @@ void displayAst(struct ast *a, int level) {
 	case '*':
 	case '/':
 		printf("binop %c\n", a->nodetype);
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case 'L':
-		printf("binop >\n");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		printf("binop L\n");
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case '1':
 		printf("binop >\n");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case '2':
 		printf("binop <\n");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case '3':
 		printf("binop <>\n");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case '4':
 		printf("binop ==\n");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case '5':
 		printf("binop >=\n");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 	case '6':
 		printf("binop <=");
-		displayAst(a->l, level);
-		displayAst(a->r, level);
+		displayAst(a->l, level + 1);
+		displayAst(a->r, level + 1);
 		return;
 
 	case 'M':
 		printf("unop %c\n", a->nodetype);
-		displayAst(a->l, level);
+		displayAst(a->l, level + 1);
 		return;
 
 	case 'I':
-		printf("flow if\n");
+		printf("if\n");
 		if (((struct astIf *)a)->cond)
-			displayAst(((struct astIf *)a)->cond, level);
+			displayAst(((struct astIf *)a)->cond, level + 1);
 		if (((struct astIf *)a)->tl)
-			displayAst(((struct astIf *)a)->tl, level);
+			displayAst(((struct astIf *)a)->tl, level + 1);
 		if (((struct astIf *)a)->elif)
-			displayAst(((struct astIf *)a)->elif, level);
+			displayAst(((struct astIf *)a)->elif, level + 1);
 		if (((struct astIf *)a)->el) {
-			printf("%*s", (4 - 1) * level, ""); /* indent to this level */
-			printf("flow else\n");
-			displayAst(((struct astIf *)a)->el, level);
+			printf("%*s", 4 * level, ""); /* indent to this level */
+			printf("else\n");
+			displayAst(((struct astIf *)a)->el, level + 1);
 		}
-		break;
+		return;
+
+	case 'W':
+		printf("While\n");
+		displayAst(((struct astWh *)a)->cond, level + 1);
+		if (((struct astWh *)a)->tl)
+			displayAst(((struct astWh *)a)->tl, level + 1);
+		return;
+
 
 	default:
 		printf("bad %c\n", a->nodetype);

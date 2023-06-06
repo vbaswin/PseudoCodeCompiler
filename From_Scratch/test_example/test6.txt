@@ -1,0 +1,8 @@
+a = 20;
+b = 50;
+
+if (a < b) then 
+	c = 20,
+	b,
+end if;
+c;

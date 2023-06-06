@@ -54,3 +54,22 @@ struct ast *newIf(int nodetype, struct ast *cond, struct ast *tl, struct ast *el
 	a->el = el;
 	return (struct ast *)a;
 }
+
+struct ast *newWh(int nodetype, struct ast *cond, struct ast *tl) {
+	struct astWh *a = malloc(sizeof(struct astWh));
+
+	a->nodetype = nodetype;
+	a->cond = cond;
+	a->tl = tl;
+	return (struct ast *)a;
+}
+
+struct ast *newFor(int nodetype, double start, double end, struct ast *tl) {
+	struct astFor *a = malloc(sizeof(struct astFor));
+
+	a->nodetype = nodetype;
+	a->start = start;
+	a->end = end;
+	a->tl = tl;
+	return (struct ast *)a;
+}

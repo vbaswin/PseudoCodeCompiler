@@ -17,7 +17,7 @@
 %token <s> NAME
 %token EOL 
 
-%token IF THEN ELSE END WHILE DO LET 
+%token IF THEN ELSE END WHILE DO FOR TO
 
 %nonassoc <fn> CMP
 %right '='
@@ -25,20 +25,31 @@
 %left '*' '/'
 %nonassoc UMINUS
 
-%type <a> exp stmt 
+%type <a> exp stmt stmts
 
 %start prog
 
 %%
 
 prog:
-	| prog stmt EOL { printf("> %4.4g\n", eval($2)); displayAst($2,3); }
+	| prog stmt ';' { printf("> %4.4g\n", eval($2)); displayAst($2,3); }
 	;
 	
-stmt: IF exp THEN stmt END IF { $$ = newIf('I', $2, $4, NULL, NULL);}
-	| IF exp THEN stmt ELSE stmt END IF { $$ = newIf('I', $2, $4,NULL, $6);}
+stmt: IF exp THEN stmts END IF 				{ $$ = newIf('I', $2, $4, NULL, NULL);}
+	| IF exp THEN stmts ELSE stmts END IF 	{ $$ = newIf('I', $2, $4,NULL, $6);}
+	| WHILE exp DO stmts END WHILE			{ $$ = newWh('W', $2, $4)}
+	| FOR NAME '=' NUM TO NUM DO stmts END FOR { $$ = newFor('F',$4, $6, $8); newasgn($2, (struct ast *)$4); }
     | exp
 	;
+
+stmts: {$$ = NULL; }
+	| stmt ',' stmts { if ($3 == NULL)
+							$$ = $1;
+						else 
+							$$ = newast('L', $1, $3);
+					}
+	| stmt			{ $$ = $1;}
+
 
 exp: exp CMP exp 		{ $$ = newcmp($2, $1, $3); }
 	| exp '+' exp          	{ $$ = newast('+', $1,$3); }

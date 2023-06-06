@@ -33,11 +33,27 @@ struct astIf {
 	struct ast *el;	  /* optional else list */
 };
 
+struct astWh {
+	int nodetype;	  /* type I or W */
+	struct ast *cond; /* condition */
+	struct ast *tl;	  /* then or do list */
+};
+
+struct astFor {
+	int nodetype;	/* type I or W */
+	double start;	/* condition */
+	double end;		/* condition */
+	struct ast *tl; /* then or do list */
+};
+
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newasgn(struct symbol *s, struct ast *v);
 struct ast *newnum(double d);
 struct ast *newref(struct symbol *s);
 struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
 struct ast *newIf(int nodetype, struct ast *cond, struct ast *tl, struct ast *elsif, struct ast *el);
+struct ast *newWh(int nodetype, struct ast *cond, struct ast *tl);
+struct ast *newFor(int nodetype, double start, double end, struct ast *tl);
+
 
 #endif

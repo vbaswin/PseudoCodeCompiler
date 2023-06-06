@@ -1,0 +1,14 @@
+a= 20;
+b = 40;
+
+if (a - b) then 
+	if (a + b) then 
+		b = 50, 
+		n = 100
+	end if 
+else 
+end if ;
+
+b;
+n;
+
