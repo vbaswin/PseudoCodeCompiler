@@ -83,6 +83,7 @@
 #line 1 "src/fb.y"
 
 #include "../inc/fb.h"
+// #include "../inc/symtab.h"
 
 
 /* Enabling traces.  */
@@ -116,7 +117,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 120 "obj/fb.tab.c"
+#line 121 "obj/fb.tab.c"
 
 #ifdef short
 # undef short
@@ -402,8 +403,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    21,    21,    22,    25,    26,    27,    28,    29,    30,
-      31
+       0,    20,    20,    21,    24,    25,    26,    27,    28,    29,
+      30
 };
 #endif
 
@@ -1310,48 +1311,48 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 22 "src/fb.y"
+#line 21 "src/fb.y"
     { printf("> %d\n", (yyvsp[(2) - (3)])); ;}
     break;
 
   case 4:
-#line 25 "src/fb.y"
+#line 24 "src/fb.y"
     { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]) ;}
     break;
 
   case 5:
-#line 26 "src/fb.y"
+#line 25 "src/fb.y"
     { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]) ;}
     break;
 
   case 6:
-#line 27 "src/fb.y"
+#line 26 "src/fb.y"
     { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]) ;}
     break;
 
   case 7:
-#line 28 "src/fb.y"
+#line 27 "src/fb.y"
     { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]) ;}
     break;
 
   case 8:
-#line 29 "src/fb.y"
+#line 28 "src/fb.y"
     { (yyval) = (yyvsp[(2) - (3)]); ;}
     break;
 
   case 9:
-#line 30 "src/fb.y"
+#line 29 "src/fb.y"
     { (yyval) = -(yyvsp[(2) - (2)]) ;}
     break;
 
   case 10:
-#line 31 "src/fb.y"
+#line 30 "src/fb.y"
     { (yyval) = (yyvsp[(1) - (1)]) ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1355 "obj/fb.tab.c"
+#line 1356 "obj/fb.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1565,5 +1566,5 @@ yyreturn:
 }
 
 
-#line 34 "src/fb.y"
+#line 33 "src/fb.y"
 

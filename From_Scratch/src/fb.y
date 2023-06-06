@@ -1,10 +1,9 @@
 %{
 #include "../inc/fb.h"
+// #include "../inc/symtab.h"
 %}
 
-// declare symtab with value as union
-// so we can add any type of value 
-// not just double or int - optional
+
 
 /* declare tokens */
 %token NUM

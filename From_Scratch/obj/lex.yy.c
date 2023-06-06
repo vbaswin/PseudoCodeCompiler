@@ -164,8 +164,27 @@ extern FILE *yyin, *yyout;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
     
-    #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
+    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
+     *       access to the local variable yy_act. Since yyless() is a macro, it would break
+     *       existing scanners that call yyless() from OUTSIDE yylex.
+     *       One obvious solution it to make yy_act a global. I tried that, and saw
+     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
+     *       normally declared as a register variable-- so it is not worth it.
+     */
+    #define  YY_LESS_LINENO(n) \
+            do { \
+                yy_size_t yyl;\
+                for ( yyl = n; yyl < yyleng; ++yyl )\
+                    if ( yytext[yyl] == '\n' )\
+                        --yylineno;\
+            }while(0)
+    #define YY_LINENO_REWIND_TO(dst) \
+            do {\
+                const char *p;\
+                for ( p = yy_cp-1; p >= (dst); --p)\
+                    if ( *p == '\n' )\
+                        --yylineno;\
+            }while(0)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -356,8 +375,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 15
-#define YY_END_OF_BUFFER 16
+#define YY_NUM_RULES 16
+#define YY_END_OF_BUFFER 17
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -365,10 +384,11 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[21] =
+static const flex_int16_t yy_accept[24] =
     {   0,
-       12,   12,   16,   14,   12,   13,    9,   10,    3,    1,
-        7,    2,    4,   11,    8,    5,    6,   12,   11,    0
+       13,   13,   17,   15,   13,   14,    9,   10,    3,    1,
+        7,    2,    4,   11,    8,    5,   12,    6,   13,   11,
+       12,   12,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -379,14 +399,14 @@ static const YY_CHAR yy_ec[256] =
         1,    2,    1,    1,    1,    1,    1,    1,    1,    4,
         5,    6,    7,    8,    9,    1,   10,   11,   11,   11,
        11,   11,   11,   11,   11,   11,   11,    1,   12,    1,
-       13,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+       13,    1,    1,    1,   14,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
+        1,    1,    1,    1,   15,    1,   14,   14,   14,   14,
 
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,   14,    1,    1,    1,    1,    1,    1,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
+       14,   14,    1,   16,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -403,39 +423,48 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[15] =
+static const YY_CHAR yy_meta[17] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1
+        2,    1,    1,    2,    2,    1
     } ;
 
-static const flex_int16_t yy_base[21] =
+static const flex_int16_t yy_base[25] =
     {   0,
-        0,    0,   19,   20,   16,   20,   20,   20,   20,   20,
-       20,   20,   20,    6,   20,   20,   20,   14,    4,   20
+        0,    0,   24,   25,   21,   25,   25,   25,   25,   25,
+       25,   25,   25,   11,   25,   25,    7,   25,   18,    8,
+        0,    4,   25,   15
     } ;
 
-static const flex_int16_t yy_def[21] =
+static const flex_int16_t yy_def[25] =
     {   0,
-       20,    1,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20,   20,   20,   20,   20,   20,    0
+       23,    1,   23,   23,   23,   23,   23,   23,   23,   23,
+       23,   23,   23,   23,   23,   23,   24,   23,   23,   23,
+       24,   24,    0,   23
     } ;
 
-static const flex_int16_t yy_nxt[35] =
+static const flex_int16_t yy_nxt[42] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
-       14,   15,   16,   17,   19,   18,   19,   18,   20,    3,
-       20,   20,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20
+       14,   15,   16,   17,    4,   18,   21,   22,   20,   19,
+       22,   20,   19,   23,    3,   23,   23,   23,   23,   23,
+       23,   23,   23,   23,   23,   23,   23,   23,   23,   23,
+       23
     } ;
 
-static const flex_int16_t yy_chk[35] =
+static const flex_int16_t yy_chk[42] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,   19,   18,   14,    5,    3,   20,
-       20,   20,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20
+        1,    1,    1,    1,    1,    1,   24,   22,   20,   19,
+       17,   14,    5,    3,   23,   23,   23,   23,   23,   23,
+       23,   23,   23,   23,   23,   23,   23,   23,   23,   23,
+       23
     } ;
+
+/* Table of booleans, true if rule could match eol. */
+static const flex_int32_t yy_rule_can_match_eol[17] =
+    {   0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -455,10 +484,11 @@ char *yytext;
 #line 4 "src/fb.l"
 
 #include "../inc/fb.h"
+#include "../inc/symtab.h"
 #include "../obj/fb.tab.h"
 
-#line 460 "obj/lex.yy.c"
-#line 461 "obj/lex.yy.c"
+#line 490 "obj/lex.yy.c"
+#line 491 "obj/lex.yy.c"
 
 #define INITIAL 0
 
@@ -675,12 +705,12 @@ YY_DECL
 		}
 
 	{
-#line 10 "src/fb.l"
+#line 11 "src/fb.l"
 
 
-#line 13 "src/fb.l"
+#line 14 "src/fb.l"
 	/* single character ops */
-#line 683 "obj/lex.yy.c"
+#line 713 "obj/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -707,13 +737,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 21 )
+				if ( yy_current_state >= 24 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 20 );
+		while ( yy_base[yy_current_state] != 25 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -725,6 +755,16 @@ yy_find_action:
 			}
 
 		YY_DO_BEFORE_ACTION;
+
+		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
+			{
+			yy_size_t yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					
+    yylineno++;
+;
+			}
 
 do_action:	/* This label is used only to access EOF actions. */
 
@@ -738,60 +778,65 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-#line 15 "src/fb.l"
-case 2:
 #line 16 "src/fb.l"
-case 3:
+case 2:
 #line 17 "src/fb.l"
-case 4:
+case 3:
 #line 18 "src/fb.l"
-case 5:
+case 4:
 #line 19 "src/fb.l"
-case 6:
+case 5:
 #line 20 "src/fb.l"
-case 7:
+case 6:
 #line 21 "src/fb.l"
-case 8:
+case 7:
 #line 22 "src/fb.l"
-case 9:
+case 8:
 #line 23 "src/fb.l"
+case 9:
+#line 24 "src/fb.l"
 case 10:
 YY_RULE_SETUP
-#line 23 "src/fb.l"
+#line 24 "src/fb.l"
 { return yytext[0]; }
 	YY_BREAK
 /* number */
 case 11:
 YY_RULE_SETUP
-#line 26 "src/fb.l"
+#line 27 "src/fb.l"
 { yylval = atoi(yytext); return NUM; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 28 "src/fb.l"
-{ }
+#line 29 "src/fb.l"
+{ addref(yylineno, yytext); }
 	YY_BREAK
 case 13:
-/* rule 13 can match eol */
 YY_RULE_SETUP
-#line 29 "src/fb.l"
-{ return EOL; }
+#line 31 "src/fb.l"
+{ }
 	YY_BREAK
 case 14:
+/* rule 14 can match eol */
 YY_RULE_SETUP
-#line 30 "src/fb.l"
-{ yyerror("Mystery character %c\n", *yytext); }
-	YY_BREAK
-case YY_STATE_EOF(INITIAL):
 #line 32 "src/fb.l"
-{ return EOF; }
+{ return EOL; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 34 "src/fb.l"
+#line 33 "src/fb.l"
+{ yyerror("Mystery character %c\n", *yytext); }
+	YY_BREAK
+case YY_STATE_EOF(INITIAL):
+#line 35 "src/fb.l"
+{ return EOF; }
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 37 "src/fb.l"
 ECHO;
 	YY_BREAK
-#line 794 "obj/lex.yy.c"
+#line 839 "obj/lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1086,7 +1131,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 21 )
+			if ( yy_current_state >= 24 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1114,11 +1159,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 21 )
+		if ( yy_current_state >= 24 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 20);
+	yy_is_jam = (yy_current_state == 23);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1156,6 +1201,10 @@ static int yy_get_next_buffer (void)
 		}
 
 	*--yy_cp = (char) c;
+
+    if ( c == '\n' ){
+        --yylineno;
+    }
 
 	(yytext_ptr) = yy_bp;
 	(yy_hold_char) = *yy_cp;
@@ -1233,6 +1282,11 @@ static int yy_get_next_buffer (void)
 	c = *(unsigned char *) (yy_c_buf_p);	/* cast for 8-bit char's */
 	*(yy_c_buf_p) = '\0';	/* preserve yytext */
 	(yy_hold_char) = *++(yy_c_buf_p);
+
+	if ( c == '\n' )
+		
+    yylineno++;
+;
 
 	return c;
 }
@@ -1700,6 +1754,9 @@ static int yy_init_globals (void)
      * This function is called from yylex_destroy(), so don't allocate here.
      */
 
+    /* We do not touch yylineno unless the option is enabled. */
+    yylineno =  1;
+    
     (yy_buffer_stack) = NULL;
     (yy_buffer_stack_top) = 0;
     (yy_buffer_stack_max) = 0;
@@ -1794,6 +1851,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 34 "src/fb.l"
+#line 37 "src/fb.l"
 
 
