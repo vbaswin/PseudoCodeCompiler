@@ -11,28 +11,17 @@ lookup(char *sym) {
 	}
 
 	symtab[cur].name = strdup(sym);
-	symtab[cur].reflist = 0;
+	symtab[cur].value = 0;
 	++cur;
 	return &symtab[cur - 1];
 }
 
-void addref(int lineno, char *word) {
-	struct symbol *sp = lookup(word);
-
-	struct ref *r = (struct ref *)malloc(sizeof(struct ref));
-	r->lineno = lineno;
-	r->next = 0;
-
-	if (!sp->reflist) {
-		sp->reflist = r;
-	} else {
-		struct ref *temp;
-		for (temp = sp->reflist; temp->next != NULL; temp = temp->next)
-			;
-		temp->next = r;
-	}
+struct symbol *newassign(char *str, double d) {
+	struct symbol *sp = lookup(str);
+	sp->value = d;
 }
 
+/*
 void printrefs() {
 	struct ref *temp;
 	int max_sz = -100000, sz;
@@ -68,3 +57,4 @@ void freeSymtab() {
 	}
 	cur = 0;
 }
+*/

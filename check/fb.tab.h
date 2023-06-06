@@ -39,32 +39,49 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUM = 258,
+     NUMBER = 258,
      NAME = 259,
-     EOL = 260,
-     UMINUS = 261
+     FUNC = 260,
+     EOL = 261,
+     IF = 262,
+     THEN = 263,
+     ELSE = 264,
+     WHILE = 265,
+     DO = 266,
+     LET = 267,
+     CMP = 268,
+     UMINUS = 269
    };
 #endif
 /* Tokens.  */
-#define NUM 258
+#define NUMBER 258
 #define NAME 259
-#define EOL 260
-#define UMINUS 261
+#define FUNC 260
+#define EOL 261
+#define IF 262
+#define THEN 263
+#define ELSE 264
+#define WHILE 265
+#define DO 266
+#define LET 267
+#define CMP 268
+#define UMINUS 269
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 8 "src/fb.y"
+#line 8 "fb.y"
 {
-	struct ast *a;
-	double d;
-	struct symbol *s;
-	int fn;
+  struct ast *a;
+  double d;
+  struct symbol *s;		/* which symbol */
+  struct symlist *sl;
+  int fn;			/* which function */
 }
 /* Line 1529 of yacc.c.  */
-#line 68 "obj/fb.tab.h"
+#line 85 "fb.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

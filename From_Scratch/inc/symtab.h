@@ -3,22 +3,20 @@
 
 #include "basic.h"
 
-struct symbol {
+/* symbol table */
+struct symbol { /* a variable name */
 	char *name;
-	struct ref *reflist;
-};
-
-struct ref {
-	struct ref *next;
-	int lineno;
+	double value;
 };
 
 extern struct symbol symtab[100];
 struct symbol *lookup(char *);
+struct symbol *newassign(char *, double);
 
 void addref(int, char *);
 void printrefs();
 void freeSymtab();
+
 
 extern int cur;
 
