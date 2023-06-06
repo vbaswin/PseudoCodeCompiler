@@ -436,7 +436,7 @@ int main(int argc, char **argv) {
 int debug = 0;
 
 void dumpast(struct ast *a, int level) {
-	printf("%*s", 2 * level, ""); /* indent to this level */
+	printf("%*s", 4 * level, ""); /* indent to this level */
 	level++;
 
 	if (!a) {

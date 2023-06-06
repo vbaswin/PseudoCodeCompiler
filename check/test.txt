@@ -2,4 +2,12 @@ a = 200
 a
 b = 50
 a + b
-if a > b then 100;
+c=a+b
+a > b
+b > c
+a == b
+b == c
+d = c
+c == d
+a + b * (c - (d / 4))
+(a + b) * (b + c)
