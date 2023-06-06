@@ -33,3 +33,13 @@ struct ast *newref(struct symbol *s) {
 	a->s = s;
 	return (struct ast *)a;
 }
+
+struct ast *
+newcmp(int cmptype, struct ast *l, struct ast *r) {
+	struct ast *a = malloc(sizeof(struct ast));
+
+	a->nodetype = '0' + cmptype;
+	a->l = l;
+	a->r = r;
+	return a;
+}

@@ -1,2 +1,4 @@
 i = 20
-while (i < 40) do (i + 1);
+n = 5
+while (n) do n = n - 1; i = i + 1 ;
+i

@@ -29,7 +29,6 @@ struct ast *newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newasgn(struct symbol *s, struct ast *v);
 struct ast *newnum(double d);
 struct ast *newref(struct symbol *s);
-double eval(struct ast *a);
-
+struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
 
 #endif

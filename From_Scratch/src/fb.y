@@ -17,6 +17,8 @@
 %token <s> NAME
 %token EOL 
 
+%nonassoc <fn> CMP
+%right '='
 %left '+' '-'
 %left '*' '/'
 %nonassoc UMINUS
@@ -31,7 +33,8 @@ prog:
 	| prog exp EOL { printf("> %4.4g\n", eval($2)); }
 	;
 
-exp: exp '+' exp          	{ $$ = newast('+', $1,$3); }
+exp: exp CMP exp 		{ $$ = newcmp($2, $1, $3); }
+	| exp '+' exp          	{ $$ = newast('+', $1,$3); }
    | exp '-' exp          	{ $$ = newast('-', $1, $3); }
    | exp '*' exp          	{ $$ = newast('*', $1,$3); }
    | exp '/' exp          	{ $$ = newast('/', $1, $3); }
@@ -39,7 +42,7 @@ exp: exp '+' exp          	{ $$ = newast('+', $1,$3); }
    | '-' exp %prec UMINUS 	{ $$ = newast('M', $2, NULL); }
    | NUM	              	{ $$ = newnum($1); }
    | NAME				  	{ $$ = newref($1); }
-   /* | NAME '=' exp			{ $$ = newasgn($1, $3); } */
+   | NAME '=' exp			{ $$ = newasgn($1, $3); }
    ;
 
 %%

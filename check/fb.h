@@ -120,4 +120,7 @@ int yyparse();
 
 extern FILE *yyin;
 
+// display symtab
+void displaySymtab();
+
 #endif

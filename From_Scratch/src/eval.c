@@ -30,6 +30,14 @@ double eval(struct ast *a) {
 		v = -eval(a->l);
 		break;
 
+		/* comparisons */
+	case '1': v = (eval(a->l) > eval(a->r)) ? 1 : 0; break;
+	case '2': v = (eval(a->l) < eval(a->r)) ? 1 : 0; break;
+	case '3': v = (eval(a->l) != eval(a->r)) ? 1 : 0; break;
+	case '4': v = (eval(a->l) == eval(a->r)) ? 1 : 0; break;
+	case '5': v = (eval(a->l) >= eval(a->r)) ? 1 : 0; break;
+	case '6': v = (eval(a->l) <= eval(a->r)) ? 1 : 0; break;
+
 	default: printf("internal error: bad node %c\n", a->nodetype);
 	}
 	return v;

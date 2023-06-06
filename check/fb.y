@@ -62,9 +62,9 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
 
 calclist: /* nothing */
   | calclist stmt EOL {
-     printf("> %4.4g\n\n", eval($2));
- 	 dumpast($2,2);
-     treefree($2);
+ 	dumpast($2,2);
+  	printf("> %4.4g\n\n", eval($2));
+    treefree($2);
     }
  ;
 %%

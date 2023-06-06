@@ -1443,9 +1443,9 @@ yyreduce:
   case 19:
 #line 64 "fb.y"
     {
-     printf("> %4.4g\n\n", eval((yyvsp[(2) - (3)].a)));
- 	 dumpast((yyvsp[(2) - (3)].a),2);
-     treefree((yyvsp[(2) - (3)].a));
+ 	dumpast((yyvsp[(2) - (3)].a),2);
+  	printf("> %4.4g\n\n", eval((yyvsp[(2) - (3)].a)));
+    treefree((yyvsp[(2) - (3)].a));
     ;}
     break;
 

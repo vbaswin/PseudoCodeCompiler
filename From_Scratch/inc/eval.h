@@ -5,5 +5,6 @@
 #include "basic.h"
 #include "symtab.h"
 
-double eval(struct ast *a) {
+double eval(struct ast *a);
+
 #endif

@@ -8,6 +8,14 @@
 #define NHASH 9997
 struct symbol symtab[NHASH];
 
+void displaySymtab() {
+	for (int i = 0; i < NHASH; ++i) {
+		// if (!symtab[i].name)
+		// break;
+		printf("%s\t->%d\n", symtab[i].name, symtab[i].value);
+	}
+}
+
 /* symbol table */
 /* hash a symbol */
 static unsigned symhash(char *sym) {
@@ -428,6 +436,8 @@ int main(int argc, char **argv) {
 		}
 	}
 	yyparse();
+	printf("Symtab\n");
+	displaySymtab();
 
 	return 0;
 }

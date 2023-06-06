@@ -42,14 +42,16 @@
      NUM = 258,
      NAME = 259,
      EOL = 260,
-     UMINUS = 261
+     CMP = 261,
+     UMINUS = 262
    };
 #endif
 /* Tokens.  */
 #define NUM 258
 #define NAME 259
 #define EOL 260
-#define UMINUS 261
+#define CMP 261
+#define UMINUS 262
 
 
 
@@ -64,7 +66,7 @@ typedef union YYSTYPE
 	int fn;
 }
 /* Line 1529 of yacc.c.  */
-#line 68 "obj/fb.tab.h"
+#line 70 "obj/fb.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
