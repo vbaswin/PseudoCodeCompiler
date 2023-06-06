@@ -2,8 +2,8 @@
 
 %{
 
-#include "fb.h"
-#include "fb.tab.h"
+#include "../inc/fb.h"
+#include "../obj/fb.tab.h"
 
 %}
 

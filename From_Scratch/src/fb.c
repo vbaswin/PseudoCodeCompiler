@@ -1,4 +1,5 @@
-#include "fb.h"
+#include "../inc/fb.h"
+#include "../inc/symtab.h"
 #include <stdarg.h>
 
 void yyerror(char *s, ...) {

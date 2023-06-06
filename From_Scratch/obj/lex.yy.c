@@ -1,5 +1,6 @@
+#line 1 "obj/lex.yy.c"
 
-#line 2 "lex.yy.c"
+#line 3 "obj/lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -450,14 +451,14 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "fb.l"
-#line 4 "fb.l"
+#line 1 "src/fb.l"
+#line 4 "src/fb.l"
 
-#include "fb.h"
-#include "fb.tab.h"
+#include "../inc/fb.h"
+#include "../obj/fb.tab.h"
 
-#line 459 "lex.yy.c"
-#line 460 "lex.yy.c"
+#line 460 "obj/lex.yy.c"
+#line 461 "obj/lex.yy.c"
 
 #define INITIAL 0
 
@@ -674,12 +675,12 @@ YY_DECL
 		}
 
 	{
-#line 10 "fb.l"
+#line 10 "src/fb.l"
 
 
-#line 13 "fb.l"
+#line 13 "src/fb.l"
 	/* single character ops */
-#line 682 "lex.yy.c"
+#line 683 "obj/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -737,60 +738,60 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-#line 15 "fb.l"
+#line 15 "src/fb.l"
 case 2:
-#line 16 "fb.l"
+#line 16 "src/fb.l"
 case 3:
-#line 17 "fb.l"
+#line 17 "src/fb.l"
 case 4:
-#line 18 "fb.l"
+#line 18 "src/fb.l"
 case 5:
-#line 19 "fb.l"
+#line 19 "src/fb.l"
 case 6:
-#line 20 "fb.l"
+#line 20 "src/fb.l"
 case 7:
-#line 21 "fb.l"
+#line 21 "src/fb.l"
 case 8:
-#line 22 "fb.l"
+#line 22 "src/fb.l"
 case 9:
-#line 23 "fb.l"
+#line 23 "src/fb.l"
 case 10:
 YY_RULE_SETUP
-#line 23 "fb.l"
+#line 23 "src/fb.l"
 { return yytext[0]; }
 	YY_BREAK
 /* number */
 case 11:
 YY_RULE_SETUP
-#line 26 "fb.l"
+#line 26 "src/fb.l"
 { yylval = atoi(yytext); return NUM; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 28 "fb.l"
+#line 28 "src/fb.l"
 { }
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 29 "fb.l"
+#line 29 "src/fb.l"
 { return EOL; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 30 "fb.l"
+#line 30 "src/fb.l"
 { yyerror("Mystery character %c\n", *yytext); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 32 "fb.l"
+#line 32 "src/fb.l"
 { return EOF; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 34 "fb.l"
+#line 34 "src/fb.l"
 ECHO;
 	YY_BREAK
-#line 793 "lex.yy.c"
+#line 794 "obj/lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1793,6 +1794,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 34 "fb.l"
+#line 34 "src/fb.l"
 
 

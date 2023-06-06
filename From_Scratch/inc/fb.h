@@ -2,6 +2,8 @@
 #define FB_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int yylex();
 int yyparse();
