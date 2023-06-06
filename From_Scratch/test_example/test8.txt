@@ -33,3 +33,8 @@ while b do
 end while;
 
 e;
+
+aswin = 20;
+ps = 90;
+aryan = 40;
+aswathy = 200;

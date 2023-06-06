@@ -22,6 +22,8 @@ struct symbol *newassign(char *str, double d) {
 }
 
 void printrefs() {
+	printf("\n\nSymtab\n\n");
+
 	struct ref *temp;
 	int max_sz = -100000, sz;
 
