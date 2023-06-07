@@ -68,6 +68,9 @@ type *newReg_printCode(type *first, type *second, char *op) {
 
 type *intermediateCode(struct ast *a) {
 	type *left, *right, *newReg = newType();
+	newReg->num = 0;
+	newReg->reg = 0;
+	newReg->str = 0;
 
 	switch (a->nodetype) {
 	/* constant */
@@ -129,11 +132,7 @@ type *intermediateCode(struct ast *a) {
 		left = intermediateCode(a->l);
 		right = intermediateCode(a->r);
 		return newReg_printCode(left, right, "<=");
-		// case 'L':
-		// 	printf("binop L\n");
-		// 	displayAst(a->l, level + 1);
-		// 	displayAst(a->r, level + 1);
-		// 	return;
+
 
 		// case 'M':
 		// 	printf("unop %c\n", a->nodetype);
@@ -143,9 +142,6 @@ type *intermediateCode(struct ast *a) {
 	case 'I':
 		type *cond = newType(), *list_if = newType(), *list_else = newType();
 		label *lab1, *lab2;
-		newReg->num = 0;
-		newReg->reg = 0;
-		newReg->str = 0;
 
 		if (((struct astIf *)a)->cond) {
 			cond = intermediateCode(((struct astIf *)a)->cond);
@@ -169,6 +165,11 @@ type *intermediateCode(struct ast *a) {
 		// 	printf("else\n");
 		// 	displayAst(((struct astIf *)a)->el, level + 1);
 		// }
+		return newReg;
+
+	case 'L':
+		intermediateCode(a->l);
+		intermediateCode(a->r);
 		return newReg;
 
 

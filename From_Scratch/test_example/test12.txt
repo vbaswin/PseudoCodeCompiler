@@ -1,5 +1,11 @@
 if a > b then 
 	c = a + b,
+	z = y/x,
+	if l > k then 
+		p = h + 1
+	else 
+		r = r * 2
+	end if 
 else 
 	m * n
 end if;
