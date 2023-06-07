@@ -71,7 +71,7 @@ double eval(struct ast *a) {
 		v = 0.0; /* a default value */
 
 		if (((struct astFor *)a)->tl) {
-			double val = ((struct symref *)a)->s->value;
+			double val = ((struct symref *)((struct astFor *)a))->s->value;
 
 			for (int i = (int)(eval(((struct astFor *)a)->exp1)); i < (int)(eval(((struct astFor *)a)->exp2)); ++i) {
 				v = eval(((struct astFor *)a)->tl);

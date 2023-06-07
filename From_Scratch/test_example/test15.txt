@@ -1,0 +1,13 @@
+for i = 1 to 5 do 
+	x = a + b
+end for;
+
+for m = (2 + 3) to 10 do
+	k = p + q,
+	for l = (h + i) to 20 do 
+		r = s / t
+	end for
+end for;
+
+i;
+m;
