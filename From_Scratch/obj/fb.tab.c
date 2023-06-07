@@ -442,9 +442,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    35,    38,    39,    40,    41,    43,    46,
-      47,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-      63,    64
+       0,    34,    34,    35,    38,    39,    40,    41,    42,    45,
+      46,    51,    54,    55,    56,    57,    58,    59,    60,    61,
+      62,    63
 };
 #endif
 
@@ -1407,71 +1407,71 @@ yyreduce:
     break;
 
   case 9:
-#line 46 "src/fb.y"
+#line 45 "src/fb.y"
     {(yyval.a) = NULL; ;}
     break;
 
   case 10:
-#line 47 "src/fb.y"
+#line 46 "src/fb.y"
     { if ((yyvsp[(3) - (3)].a) == NULL)
-							(yyval.a) = (yyvsp[(1) - (3)].a);
+							(yyval.a) = newExpList('L', (yyvsp[(1) - (3)].a));
 						else 
-							(yyval.a) = newast('L', (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a));
+							(yyval.a) = joinExpList('L', (yyvsp[(3) - (3)].a), newExpList('L',(yyvsp[(1) - (3)].a))); 	// need to create new functionto add multiple list together and then pass more better
 					;}
     break;
 
   case 11:
-#line 52 "src/fb.y"
-    { (yyval.a) = (yyvsp[(1) - (1)].a);;}
+#line 51 "src/fb.y"
+    { (yyval.a) = newExpList('L', (yyvsp[(1) - (1)].a));}
     break;
 
   case 12:
-#line 55 "src/fb.y"
+#line 54 "src/fb.y"
     { (yyval.a) = newcmp((yyvsp[(2) - (3)].fn), (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 13:
-#line 56 "src/fb.y"
+#line 55 "src/fb.y"
     { (yyval.a) = newast('+', (yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 14:
-#line 57 "src/fb.y"
+#line 56 "src/fb.y"
     { (yyval.a) = newast('-', (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 15:
-#line 58 "src/fb.y"
+#line 57 "src/fb.y"
     { (yyval.a) = newast('*', (yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 16:
-#line 59 "src/fb.y"
+#line 58 "src/fb.y"
     { (yyval.a) = newast('/', (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 17:
-#line 60 "src/fb.y"
+#line 59 "src/fb.y"
     { (yyval.a) = (yyvsp[(2) - (3)].a) ;}
     break;
 
   case 18:
-#line 61 "src/fb.y"
+#line 60 "src/fb.y"
     { (yyval.a) = newast('M', (yyvsp[(2) - (2)].a), NULL); ;}
     break;
 
   case 19:
-#line 62 "src/fb.y"
+#line 61 "src/fb.y"
     { (yyval.a) = newnum((yyvsp[(1) - (1)].d)); ;}
     break;
 
   case 20:
-#line 63 "src/fb.y"
+#line 62 "src/fb.y"
     { (yyval.a) = newref((yyvsp[(1) - (1)].s)); ;}
     break;
 
   case 21:
-#line 64 "src/fb.y"
+#line 63 "src/fb.y"
     { (yyval.a) = newasgn((yyvsp[(1) - (3)].s), (yyvsp[(3) - (3)].a)); ;}
     break;
 
@@ -1691,5 +1691,5 @@ yyreturn:
 }
 
 
-#line 67 "src/fb.y"
+#line 66 "src/fb.y"
 

@@ -190,6 +190,7 @@ void displayAst(struct ast *a, int level) {
 	case 'L':
 		displayAst(((struct astExpList *)a)->next, level);
 		displayAst(((struct astExpList *)a)->exp, level);
+
 		return;
 
 	default:
