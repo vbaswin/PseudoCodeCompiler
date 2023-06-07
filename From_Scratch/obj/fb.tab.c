@@ -106,6 +106,7 @@
 #include "../inc/symtab.h"
 #include "../inc/ast.h"
 #include "../inc/eval.h"
+#include "../inc/intermediate.h"
 
 
 /* Enabling traces.  */
@@ -128,7 +129,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 8 "src/fb.y"
+#line 9 "src/fb.y"
 {
 	struct ast *a;
 	double d;
@@ -136,7 +137,7 @@ typedef union YYSTYPE
 	int fn;
 }
 /* Line 193 of yacc.c.  */
-#line 140 "obj/fb.tab.c"
+#line 141 "obj/fb.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -149,7 +150,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 153 "obj/fb.tab.c"
+#line 154 "obj/fb.tab.c"
 
 #ifdef short
 # undef short
@@ -442,7 +443,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    35,    38,    39,    40,    41,    43,    46,
+       0,    35,    35,    36,    39,    40,    41,    42,    43,    46,
       47,    52,    55,    56,    57,    58,    59,    60,    61,    62,
       63,    64
 };
@@ -1382,27 +1383,27 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 35 "src/fb.y"
-    { printf("> %4.4g\n", eval((yyvsp[(2) - (3)].a))); displayAst((yyvsp[(2) - (3)].a),3); ;}
+#line 36 "src/fb.y"
+    { printf("> %4.4g\n", eval((yyvsp[(2) - (3)].a))); displayAst((yyvsp[(2) - (3)].a),3); intermediateCode((yyvsp[(2) - (3)].a)); printf("\n");;}
     break;
 
   case 4:
-#line 38 "src/fb.y"
-    { (yyval.a) = newIf('I', (yyvsp[(2) - (6)].a), (yyvsp[(4) - (6)].a), NULL, NULL);;}
+#line 39 "src/fb.y"
+    { (yyval.a) = newIf('I', (yyvsp[(2) - (6)].a), (yyvsp[(4) - (6)].a), NULL, NULL); ;}
     break;
 
   case 5:
-#line 39 "src/fb.y"
+#line 40 "src/fb.y"
     { (yyval.a) = newIf('I', (yyvsp[(2) - (8)].a), (yyvsp[(4) - (8)].a),NULL, (yyvsp[(6) - (8)].a));;}
     break;
 
   case 6:
-#line 40 "src/fb.y"
+#line 41 "src/fb.y"
     { (yyval.a) = newWh('W', (yyvsp[(2) - (6)].a), (yyvsp[(4) - (6)].a));}
     break;
 
   case 7:
-#line 41 "src/fb.y"
+#line 42 "src/fb.y"
     { (yyval.a) = newFor('F', (struct ast *)(yyvsp[(2) - (10)].s), (yyvsp[(4) - (10)].a), (yyvsp[(6) - (10)].a), (yyvsp[(8) - (10)].a)); ;}
     break;
 
@@ -1432,7 +1433,7 @@ yyreduce:
 
   case 13:
 #line 56 "src/fb.y"
-    { (yyval.a) = newast('+', (yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)); ;}
+    { (yyval.a) = newast('+', (yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a));;}
     break;
 
   case 14:
@@ -1477,7 +1478,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1481 "obj/fb.tab.c"
+#line 1482 "obj/fb.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

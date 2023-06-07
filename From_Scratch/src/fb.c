@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 		}
 	}
 	yyparse();
-	printrefs();
+	// printrefs();
 
 	return 0;
 }

@@ -74,7 +74,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 8 "src/fb.y"
+#line 9 "src/fb.y"
 {
 	struct ast *a;
 	double d;

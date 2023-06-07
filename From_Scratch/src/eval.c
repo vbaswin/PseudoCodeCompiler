@@ -108,7 +108,7 @@ void displayAst(struct ast *a, int level) {
 
 		/* assignment */
 	case '=':
-		printf("= %s\n", ((struct symref *)a)->s->name);
+		printf("%s =\n", ((struct symref *)a)->s->name);
 		displayAst(((struct symasgn *)a)->v, level + 1);
 		return;
 
