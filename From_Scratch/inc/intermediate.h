@@ -9,6 +9,10 @@ typedef struct TYPE {
 	int reg;
 } type;
 
+typedef struct LABEL {
+	char *name;
+} label;
+
 type *intermediateCode(struct ast *a);
 
 #endif
