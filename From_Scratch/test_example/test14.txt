@@ -1,0 +1,6 @@
+while 0 do 
+	a = a + 1,
+	while a > b do 
+		i = i * 5
+	end while
+end while;

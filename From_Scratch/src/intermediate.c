@@ -143,12 +143,16 @@ type *intermediateCode(struct ast *a) {
 		type *cond = newType();
 		label *lab1 = newLabPrint(), *lab2 = newLabPrint();
 
-		if (((struct astIf *)a)->cond) {
+		if (((struct astIf *)a)->cond)
 			cond = intermediateCode(((struct astIf *)a)->cond);
-			// intermediateCode
-			// if num or var returned code here
-		}
-		printf("if %s goto %s\n", cond->str, lab1->name);
+
+		printf("if ");
+		if (cond->reg || cond->str)
+			printf("%s", cond->str);
+		else
+			printf("%d", cond->num);
+
+		printf(" goto %s\n", lab1->name);
 		if (((struct astIf *)a)->el) {
 			intermediateCode(((struct astIf *)a)->el);
 		}
@@ -175,19 +179,24 @@ type *intermediateCode(struct ast *a) {
 		cond = newType();
 		lab1 = newLabPrint();
 		lab2 = newLabPrint();
+		label *lab3 = newLabPrint();
 
 		printf("%s:\n", lab1->name);
-		if (((struct astWh *)a)->cond) {
+		if (((struct astWh *)a)->cond)
 			cond = intermediateCode(((struct astWh *)a)->cond);
-			// intermediateCode
-			// if num or var returned code here
-		}
-		printf("if %s = 0  goto %s\n", cond->str, lab2->name);
+
+		printf("if ");
+		if (cond->reg || cond->str)
+			printf("%s", cond->str);
+		else
+			printf("%d", cond->num);
+
+		printf(" goto %s\ngoto %s\n%s:\n", lab2->name, lab3->name, lab2->name);
 		if (((struct astIf *)a)->tl) {
 			intermediateCode(((struct astIf *)a)->tl);
 		}
 		printf("goto %s\n", lab1->name);
-		printf("%s:\n", lab2->name);
+		printf("%s:\n", lab3->name);
 		return newReg;
 
 		// case 'F':

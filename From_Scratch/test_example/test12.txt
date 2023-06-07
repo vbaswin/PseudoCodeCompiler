@@ -1,8 +1,11 @@
 if a > b then 
 	c = a + b,
 	z = y/x,
-	if l > k then 
-		p = h + 1
+	if l then 
+		p = h + 1,
+		if 0 then 
+			o = o / 2
+		end if
 	else 
 		r = r * 2
 	end if 
