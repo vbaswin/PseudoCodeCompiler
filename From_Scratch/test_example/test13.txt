@@ -1,0 +1,6 @@
+while a + 3 do 
+	a = a -1,
+	while m > n do 
+		i = i * 2
+	end while
+end while;
