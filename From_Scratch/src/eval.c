@@ -71,8 +71,13 @@ double eval(struct ast *a) {
 		v = 0.0; /* a default value */
 
 		if (((struct astFor *)a)->tl) {
-			for (int i = ((struct astFor *)a)->start; i < ((struct astFor *)a)->end; ++i)
+			double val = ((struct symref *)a)->s->value;
+
+			for (int i = (int)(eval(((struct astFor *)a)->exp1)); i < (int)(eval(((struct astFor *)a)->exp2)); ++i) {
 				v = eval(((struct astFor *)a)->tl);
+				++val;
+			}
+			((struct symref *)a)->s->value = val;
 		}
 		break;
 
@@ -179,6 +184,14 @@ void displayAst(struct ast *a, int level) {
 			displayAst(((struct astWh *)a)->tl, level + 1);
 		return;
 
+	case 'F':
+		printf("For\n");
+		displayAst(newasgn(((struct symref *)a)->s, ((struct astFor *)a)->exp1), level + 1);
+		displayAst(((struct astFor *)a)->exp1, level + 1);
+		displayAst(((struct astFor *)a)->exp2, level + 1);
+		if (((struct astFor *)a)->tl)
+			displayAst(((struct astFor *)a)->tl, level + 1);
+		return;
 
 	default:
 		printf("bad %c\n", a->nodetype);

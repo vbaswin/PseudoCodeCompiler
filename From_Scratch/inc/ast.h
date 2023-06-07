@@ -40,10 +40,11 @@ struct astWh {
 };
 
 struct astFor {
-	int nodetype;	/* type I or W */
-	double start;	/* condition */
-	double end;		/* condition */
-	struct ast *tl; /* then or do list */
+	int nodetype;	  /* type I or W */
+	struct ast *name; /* condition */
+	struct ast *exp1; /* condition */
+	struct ast *exp2; /* condition */
+	struct ast *tl;	  /* then or do list */
 };
 
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
@@ -53,7 +54,7 @@ struct ast *newref(struct symbol *s);
 struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
 struct ast *newIf(int nodetype, struct ast *cond, struct ast *tl, struct ast *elsif, struct ast *el);
 struct ast *newWh(int nodetype, struct ast *cond, struct ast *tl);
-struct ast *newFor(int nodetype, double start, double end, struct ast *tl);
+struct ast *newFor(int nodetype, struct ast *name, struct ast *exp1, struct ast *exp2, struct ast *tl);
 
 
 #endif

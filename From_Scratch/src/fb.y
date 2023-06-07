@@ -38,7 +38,7 @@ prog:
 stmt: IF exp THEN stmts END IF 				{ $$ = newIf('I', $2, $4, NULL, NULL);}
 	| IF exp THEN stmts ELSE stmts END IF 	{ $$ = newIf('I', $2, $4,NULL, $6);}
 	| WHILE exp DO stmts END WHILE			{ $$ = newWh('W', $2, $4)}
-	/* | FOR NAME '=' NUM TO NUM DO stmts END FOR { $$ = newFor('F',$4, $6, $8); newasgn($2, (struct ast *)$4); } */
+	| FOR NAME '=' exp TO exp DO stmts END FOR { $$ = newFor('F', (struct ast *)$2, $4, $6, $8); }
     | exp
 	;
 

@@ -64,12 +64,13 @@ struct ast *newWh(int nodetype, struct ast *cond, struct ast *tl) {
 	return (struct ast *)a;
 }
 
-struct ast *newFor(int nodetype, double start, double end, struct ast *tl) {
+struct ast *newFor(int nodetype, struct ast *name, struct ast *exp1, struct ast *exp2, struct ast *tl) {
 	struct astFor *a = malloc(sizeof(struct astFor));
 
 	a->nodetype = nodetype;
-	a->start = start;
-	a->end = end;
+	a->name = name;
+	a->exp1 = exp1;
+	a->exp2 = exp2;
 	a->tl = tl;
 	return (struct ast *)a;
 }
