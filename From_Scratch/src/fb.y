@@ -44,11 +44,11 @@ stmt: IF exp THEN stmts END IF 				{ $$ = newIf('I', $2, $4, NULL, NULL);}
 
 stmts: {$$ = NULL; }
 	| stmt ',' stmts { if ($3 == NULL)
-							$$ = $1;
+							$$ = newExpList('L', $1);
 						else 
-							$$ = newast('L', $1, $3);
+							$$ = joinExpList('L', $3, newExpList('L',$1)); 	// need to create new functionto add multiple list together and then pass more better
 					}
-	| stmt			{ $$ = $1;}
+	| stmt			{ $$ = newExpList('L', $1)}
 
 
 exp: exp CMP exp 		{ $$ = newcmp($2, $1, $3); }

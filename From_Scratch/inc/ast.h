@@ -47,7 +47,14 @@ struct astFor {
 	struct ast *tl;	  /* then or do list */
 };
 
-struct ast *newast(int nodetype, struct ast *l, struct ast *r);
+struct astExpList {
+	int nodetype;
+	struct ast *exp;
+	struct ast *next;
+};
+
+struct ast *
+newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newasgn(struct symbol *s, struct ast *v);
 struct ast *newnum(double d);
 struct ast *newref(struct symbol *s);
@@ -55,6 +62,7 @@ struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
 struct ast *newIf(int nodetype, struct ast *cond, struct ast *tl, struct ast *elsif, struct ast *el);
 struct ast *newWh(int nodetype, struct ast *cond, struct ast *tl);
 struct ast *newFor(int nodetype, struct ast *name, struct ast *exp1, struct ast *exp2, struct ast *tl);
-
+struct ast *newExpList(int nodetype, struct ast *exp);
+struct ast *joinExpList(int nodetype, struct ast *second, struct ast *first);
 
 #endif

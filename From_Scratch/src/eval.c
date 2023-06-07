@@ -53,11 +53,6 @@ double eval(struct ast *a) {
 		}
 		break;
 
-	case 'L':
-		eval(a->l);
-		v = eval(a->r);
-		break;
-
 	case 'W':
 		v = 0.0; /* a default value */
 
@@ -80,6 +75,10 @@ double eval(struct ast *a) {
 			((struct symref *)a)->s->value = val;
 		}
 		break;
+
+	case 'L':
+		if (((struct astExpList *)a)->exp)
+			eval(((struct astExpList *)a)->exp);
 
 
 	default: printf("internal error: bad node %c\n", a->nodetype);
@@ -118,11 +117,6 @@ void displayAst(struct ast *a, int level) {
 	case '*':
 	case '/':
 		printf("binop %c\n", a->nodetype);
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
-		return;
-	case 'L':
-		printf("binop L\n");
 		displayAst(a->l, level + 1);
 		displayAst(a->r, level + 1);
 		return;
@@ -191,6 +185,11 @@ void displayAst(struct ast *a, int level) {
 		displayAst(((struct astFor *)a)->exp2, level + 1);
 		if (((struct astFor *)a)->tl)
 			displayAst(((struct astFor *)a)->tl, level + 1);
+		return;
+
+	case 'L':
+		displayAst(((struct astExpList *)a)->next, level);
+		displayAst(((struct astExpList *)a)->exp, level);
 		return;
 
 	default:

@@ -74,3 +74,18 @@ struct ast *newFor(int nodetype, struct ast *name, struct ast *exp1, struct ast 
 	a->tl = tl;
 	return (struct ast *)a;
 }
+
+struct ast *newExpList(int nodetype, struct ast *exp) {
+	struct astExpList *a = malloc(sizeof(struct astExpList));
+
+	a->nodetype = nodetype;
+	a->exp = exp;
+	a->next = NULL;
+
+	return (struct ast *)a;
+}
+
+struct ast *joinExpList(int nodetype, struct ast *second, struct ast *first) {
+	((struct astExpList *)second)->next = first;
+	return (struct ast *)second;
+}
