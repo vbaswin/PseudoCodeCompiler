@@ -187,12 +187,6 @@ void displayAst(struct ast *a, int level) {
 			displayAst(((struct astFor *)a)->tl, level + 1);
 		return;
 
-	case 'L':
-		displayAst(((struct astExpList *)a)->next, level);
-		displayAst(((struct astExpList *)a)->exp, level);
-
-		return;
-
 	default:
 		printf("bad %c\n", a->nodetype);
 		return;
