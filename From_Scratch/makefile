@@ -1,4 +1,4 @@
-CC = gcc-13
+CC = gcc
 CFLAGS := -mmacosx-version-min=13.3 -ll
 
 # folders

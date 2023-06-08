@@ -1,0 +1,43 @@
+a =
+    number   20
+
+
+b =
+    number   40
+
+
+if
+    binop +
+        ref a
+        ref b
+    if
+        binop >
+            ref b
+            ref a
+        ref a
+
+
+if
+    binop >
+        ref a
+        ref b
+    ref a
+else
+    ref b
+
+
+if
+    binop >
+        ref a
+        ref b
+    ref a
+else
+    if
+        binop >
+            ref a
+            ref b
+        ref a
+    else
+        ref a
+
+

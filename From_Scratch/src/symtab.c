@@ -20,6 +20,7 @@ lookup(char *sym) {
 struct symbol *newassign(char *str, double d) {
 	struct symbol *sp = lookup(str);
 	sp->value = d;
+	return sp;
 }
 
 void printrefs() {
@@ -33,7 +34,6 @@ void printrefs() {
 		return;
 	}
 
-	struct ref *temp;
 	int max_sz = -100000, sz;
 
 	for (int i = 0; i < cur; ++i) {

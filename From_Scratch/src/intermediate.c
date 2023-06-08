@@ -48,7 +48,7 @@ type *newType_printCode(type *first, type *second, char *op, FILE *fp) {
 		newType->num = 0;
 		newType->reg = 0;
 		newType->str = strdup(((struct symasgn *)first)->s->name);
-		fprintf(fp, "%s = %s\n", newType->str, newType_printCode(first, second, "=2", fp)->str, fp);
+		fprintf(fp, "%s = %s\n", newType->str, newType_printCode(first, second, "=2", fp)->str);
 		return newType;
 	}
 
@@ -68,7 +68,7 @@ type *newType_printCode(type *first, type *second, char *op, FILE *fp) {
 }
 
 type *intermediateCode(struct ast *a, FILE *fp) {
-	type *left, *right, *newType = newTypeCreate();
+	type *left, *right, *newType = newTypeCreate(), *cond;
 	newType->num = 0;
 	newType->reg = 0;
 	newType->str = 0;
@@ -141,7 +141,7 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		// 	return;
 
 	case 'I':
-		type *cond = newTypeCreate();
+		cond = newTypeCreate();
 		label *lab1 = newLabPrint(), *lab2 = newLabPrint();
 
 		if (((struct astIf *)a)->cond)
@@ -242,6 +242,7 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		newType->str = 0;
 		return newType;
 	}
+	return newType;
 }
 
 void intermediateCodeHandle(struct ast *a) {

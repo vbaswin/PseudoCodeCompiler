@@ -1,0 +1,39 @@
+r1 = 20
+a = r1
+
+
+r2 = 40
+b = r2
+
+
+r3 = a + b
+if r3 goto l1
+goto l2
+l1:
+r4 = b > a
+if r4 goto l3
+goto l4
+l3:
+l4
+l2
+
+
+r5 = a > b
+if r5 goto l5
+goto l6
+l5:
+l6
+
+
+r6 = a > b
+if r6 goto l7
+r7 = a > b
+if r7 goto l9
+goto l10
+l9:
+l10
+goto l8
+l7:
+l8
+
+
