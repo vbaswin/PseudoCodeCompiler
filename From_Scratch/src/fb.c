@@ -1,6 +1,6 @@
 #include "../inc/fb.h"
+#include "../inc/cwd.h"
 #include "../inc/symtab.h"
-#include <stdarg.h>
 
 void yyerror(char *s, ...) {
 	va_list ap;
@@ -19,7 +19,8 @@ int main(int argc, char **argv) {
 		}
 	}
 	yyparse();
-	// printrefs();
+	printrefs();
+
 
 	return 0;
 }

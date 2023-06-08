@@ -107,6 +107,9 @@
 #include "../inc/ast.h"
 #include "../inc/eval.h"
 #include "../inc/intermediate.h"
+#include "../inc/cwd.h"
+
+void writeOutput(double);
 
 
 /* Enabling traces.  */
@@ -129,7 +132,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 9 "src/fb.y"
+#line 12 "src/fb.y"
 {
 	struct ast *a;
 	double d;
@@ -137,7 +140,7 @@ typedef union YYSTYPE
 	int fn;
 }
 /* Line 193 of yacc.c.  */
-#line 141 "obj/fb.tab.c"
+#line 144 "obj/fb.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -150,7 +153,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 154 "obj/fb.tab.c"
+#line 157 "obj/fb.tab.c"
 
 #ifdef short
 # undef short
@@ -443,9 +446,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    35,    35,    36,    39,    40,    41,    42,    43,    46,
-      47,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-      63,    64
+       0,    38,    38,    39,    42,    43,    44,    45,    46,    49,
+      50,    55,    58,    59,    60,    61,    62,    63,    64,    65,
+      66,    67
 };
 #endif
 
@@ -1383,37 +1386,37 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 36 "src/fb.y"
-    { printf("> %4.4g\n", eval((yyvsp[(2) - (3)].a))); displayAst((yyvsp[(2) - (3)].a),3); intermediateCode((yyvsp[(2) - (3)].a)); printf("\n");;}
+#line 39 "src/fb.y"
+    { displayAstHandle((yyvsp[(2) - (3)].a)); intermediateCodeHandle((yyvsp[(2) - (3)].a)); writeOutput(eval((yyvsp[(2) - (3)].a)));;}
     break;
 
   case 4:
-#line 39 "src/fb.y"
+#line 42 "src/fb.y"
     { (yyval.a) = newIf('I', (yyvsp[(2) - (6)].a), (yyvsp[(4) - (6)].a), NULL, NULL); ;}
     break;
 
   case 5:
-#line 40 "src/fb.y"
+#line 43 "src/fb.y"
     { (yyval.a) = newIf('I', (yyvsp[(2) - (8)].a), (yyvsp[(4) - (8)].a),NULL, (yyvsp[(6) - (8)].a));;}
     break;
 
   case 6:
-#line 41 "src/fb.y"
+#line 44 "src/fb.y"
     { (yyval.a) = newWh('W', (yyvsp[(2) - (6)].a), (yyvsp[(4) - (6)].a));}
     break;
 
   case 7:
-#line 42 "src/fb.y"
+#line 45 "src/fb.y"
     { (yyval.a) = newFor('F', (struct ast *)(yyvsp[(2) - (10)].s), (yyvsp[(4) - (10)].a), (yyvsp[(6) - (10)].a), (yyvsp[(8) - (10)].a)); ;}
     break;
 
   case 9:
-#line 46 "src/fb.y"
+#line 49 "src/fb.y"
     {(yyval.a) = NULL; ;}
     break;
 
   case 10:
-#line 47 "src/fb.y"
+#line 50 "src/fb.y"
     { if ((yyvsp[(3) - (3)].a) == NULL)
 							(yyval.a) = (yyvsp[(1) - (3)].a);
 						else 
@@ -1422,63 +1425,63 @@ yyreduce:
     break;
 
   case 11:
-#line 52 "src/fb.y"
+#line 55 "src/fb.y"
     { (yyval.a) = (yyvsp[(1) - (1)].a);;}
     break;
 
   case 12:
-#line 55 "src/fb.y"
+#line 58 "src/fb.y"
     { (yyval.a) = newcmp((yyvsp[(2) - (3)].fn), (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 13:
-#line 56 "src/fb.y"
+#line 59 "src/fb.y"
     { (yyval.a) = newast('+', (yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a));;}
     break;
 
   case 14:
-#line 57 "src/fb.y"
+#line 60 "src/fb.y"
     { (yyval.a) = newast('-', (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 15:
-#line 58 "src/fb.y"
+#line 61 "src/fb.y"
     { (yyval.a) = newast('*', (yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 16:
-#line 59 "src/fb.y"
+#line 62 "src/fb.y"
     { (yyval.a) = newast('/', (yyvsp[(1) - (3)].a), (yyvsp[(3) - (3)].a)); ;}
     break;
 
   case 17:
-#line 60 "src/fb.y"
+#line 63 "src/fb.y"
     { (yyval.a) = (yyvsp[(2) - (3)].a) ;}
     break;
 
   case 18:
-#line 61 "src/fb.y"
+#line 64 "src/fb.y"
     { (yyval.a) = newast('M', (yyvsp[(2) - (2)].a), NULL); ;}
     break;
 
   case 19:
-#line 62 "src/fb.y"
+#line 65 "src/fb.y"
     { (yyval.a) = newnum((yyvsp[(1) - (1)].d)); ;}
     break;
 
   case 20:
-#line 63 "src/fb.y"
+#line 66 "src/fb.y"
     { (yyval.a) = newref((yyvsp[(1) - (1)].s)); ;}
     break;
 
   case 21:
-#line 64 "src/fb.y"
+#line 67 "src/fb.y"
     { (yyval.a) = newasgn((yyvsp[(1) - (3)].s), (yyvsp[(3) - (3)].a)); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1482 "obj/fb.tab.c"
+#line 1485 "obj/fb.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1692,5 +1695,20 @@ yyreturn:
 }
 
 
-#line 67 "src/fb.y"
+#line 70 "src/fb.y"
 
+
+void writeOutput(double d) {
+	char completePath[500];
+	getCompletePath(completePath, "/output/output.txt");
+
+	FILE *fp = fopen(completePath, "a+");
+
+	if (fp == NULL) {
+		printf("Error opening the file.\n");
+		return;
+	}
+
+	fprintf(fp, "> %4.6g\n", d); 
+	fclose(fp);
+}

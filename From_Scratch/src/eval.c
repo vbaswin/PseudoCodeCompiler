@@ -1,4 +1,5 @@
 #include "../inc/eval.h"
+#include "../inc/cwd.h"
 
 double eval(struct ast *a) {
 	double v;
@@ -28,6 +29,7 @@ double eval(struct ast *a) {
 	case '|': v = fabs(eval(a->l)); break;
 	case 'M':
 		v = -eval(a->l);
+		printf("%4.4g", v);
 		break;
 
 		/* comparisons */
@@ -87,29 +89,29 @@ double eval(struct ast *a) {
 	return v;
 }
 
-void displayAst(struct ast *a, int level) {
-	printf("%*s", 4 * level, ""); /* indent to this level */
+void displayAst(struct ast *a, int level, FILE *fp) {
+	fprintf(fp, "%*s", 4 * level, ""); /* indent to this level */
 
 	if (!a) {
-		printf("NULL\n");
+		fprintf(fp, "NULL\n");
 		return;
 	}
 
 	switch (a->nodetype) {
 		/* constant */
 	case 'K':
-		printf("number %4.4g\n", ((struct numval *)a)->number);
+		fprintf(fp, "number %4.4g\n", ((struct numval *)a)->number);
 		break;
 
 		/* name reference */
 	case 'N':
-		printf("ref %s\n", ((struct symref *)a)->s->name);
+		fprintf(fp, "ref %s\n", ((struct symref *)a)->s->name);
 		break;
 
 		/* assignment */
 	case '=':
-		printf("%s =\n", ((struct symref *)a)->s->name);
-		displayAst(((struct symasgn *)a)->v, level + 1);
+		fprintf(fp, "%s =\n", ((struct symref *)a)->s->name);
+		displayAst(((struct symasgn *)a)->v, level + 1, fp);
 		return;
 
 		/* expressions */
@@ -117,84 +119,100 @@ void displayAst(struct ast *a, int level) {
 	case '-':
 	case '*':
 	case '/':
-		printf("binop %c\n", a->nodetype);
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop %c\n", a->nodetype);
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case 'L':
-		printf("binop L\n");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop L\n");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case '1':
-		printf("binop >\n");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop >\n");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case '2':
-		printf("binop <\n");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop <\n");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case '3':
-		printf("binop <>\n");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop <>\n");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case '4':
-		printf("binop ==\n");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop ==\n");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case '5':
-		printf("binop >=\n");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop >=\n");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 	case '6':
-		printf("binop <=");
-		displayAst(a->l, level + 1);
-		displayAst(a->r, level + 1);
+		fprintf(fp, "binop <=");
+		displayAst(a->l, level + 1, fp);
+		displayAst(a->r, level + 1, fp);
 		return;
 
 	case 'M':
-		printf("unop %c\n", a->nodetype);
-		displayAst(a->l, level + 1);
+		fprintf(fp, "unop %c\n", a->nodetype);
+		displayAst(a->l, level + 1, fp);
 		return;
 
 	case 'I':
-		printf("if\n");
+		fprintf(fp, "if\n");
 		if (((struct astIf *)a)->cond)
-			displayAst(((struct astIf *)a)->cond, level + 1);
+			displayAst(((struct astIf *)a)->cond, level + 1, fp);
 		if (((struct astIf *)a)->tl)
-			displayAst(((struct astIf *)a)->tl, level + 1);
+			displayAst(((struct astIf *)a)->tl, level + 1, fp);
 		if (((struct astIf *)a)->elif)
-			displayAst(((struct astIf *)a)->elif, level + 1);
+			displayAst(((struct astIf *)a)->elif, level + 1, fp);
 		if (((struct astIf *)a)->el) {
-			printf("%*s", 4 * level, ""); /* indent to this level */
-			printf("else\n");
-			displayAst(((struct astIf *)a)->el, level + 1);
+			fprintf(fp, "%*s", 4 * level, ""); /* indent to this level */
+			fprintf(fp, "else\n");
+			displayAst(((struct astIf *)a)->el, level + 1, fp);
 		}
 		return;
 
 	case 'W':
-		printf("While\n");
-		displayAst(((struct astWh *)a)->cond, level + 1);
+		fprintf(fp, "While\n");
+		displayAst(((struct astWh *)a)->cond, level + 1, fp);
 		if (((struct astWh *)a)->tl)
-			displayAst(((struct astWh *)a)->tl, level + 1);
+			displayAst(((struct astWh *)a)->tl, level + 1, fp);
 		return;
 
 	case 'F':
-		printf("For\n");
-		displayAst(newasgn(((struct symref *)a)->s, ((struct astFor *)a)->exp1), level + 1);
-		displayAst(((struct astFor *)a)->exp1, level + 1);
-		displayAst(((struct astFor *)a)->exp2, level + 1);
+		fprintf(fp, "For\n");
+		displayAst(newasgn(((struct symref *)a)->s, ((struct astFor *)a)->exp1), level + 1, fp);
+		displayAst(((struct astFor *)a)->exp1, level + 1, fp);
+		displayAst(((struct astFor *)a)->exp2, level + 1, fp);
 		if (((struct astFor *)a)->tl)
-			displayAst(((struct astFor *)a)->tl, level + 1);
+			displayAst(((struct astFor *)a)->tl, level + 1, fp);
 		return;
 
 	default:
-		printf("bad %c\n", a->nodetype);
+		fprintf(fp, "bad %c\n", a->nodetype);
 		return;
 	}
+}
+
+void displayAstHandle(struct ast *a) {
+	char completePath[500];
+	getCompletePath(completePath, "/output/ast.txt");
+
+	FILE *fp = fopen(completePath, "a+");
+
+	if (fp == NULL) {
+		printf("Error opening the file.\n");
+		return;
+	}
+
+	displayAst(a, 0, fp);
+	fprintf(fp, "\n\n");
+	fclose(fp);
 }

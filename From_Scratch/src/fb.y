@@ -4,6 +4,9 @@
 #include "../inc/ast.h"
 #include "../inc/eval.h"
 #include "../inc/intermediate.h"
+#include "../inc/cwd.h"
+
+void writeOutput(double);
 %}
 
 %union {
@@ -33,7 +36,7 @@
 %%
 
 prog:
-	| prog stmt ';' { printf("> %4.4g\n", eval($2)); displayAst($2,3); intermediateCode($2); printf("\n");}
+	| prog stmt ';' { displayAstHandle($2); intermediateCodeHandle($2); writeOutput(eval($2));}
 	;
 	
 stmt: IF exp THEN stmts END IF 				{ $$ = newIf('I', $2, $4, NULL, NULL); }
@@ -65,3 +68,18 @@ exp: exp CMP exp 		{ $$ = newcmp($2, $1, $3); }
    ;
 
 %%
+
+void writeOutput(double d) {
+	char completePath[500];
+	getCompletePath(completePath, "/output/output.txt");
+
+	FILE *fp = fopen(completePath, "a+");
+
+	if (fp == NULL) {
+		printf("Error opening the file.\n");
+		return;
+	}
+
+	fprintf(fp, "> %4.6g\n", d); 
+	fclose(fp);
+}

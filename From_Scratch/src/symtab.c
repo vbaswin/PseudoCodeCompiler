@@ -1,4 +1,5 @@
 #include "../inc/symtab.h"
+#include "../inc/cwd.h"
 
 int cur = 0;
 struct symbol symtab[100];
@@ -22,7 +23,15 @@ struct symbol *newassign(char *str, double d) {
 }
 
 void printrefs() {
-	printf("\n\nSymtab\n\n");
+	char completePath[500];
+	getCompletePath(completePath, "/output/symtab.txt");
+
+	FILE *fp = fopen(completePath, "a+");
+
+	if (fp == NULL) {
+		printf("Error opening the file.\n");
+		return;
+	}
 
 	struct ref *temp;
 	int max_sz = -100000, sz;
@@ -34,24 +43,9 @@ void printrefs() {
 	}
 
 	for (int i = 0; i < cur; ++i) {
-		printf("%-*s", max_sz, symtab[i].name);
+		fprintf(fp, "%-*s", max_sz, symtab[i].name);
 
-		printf("\t->\t%4.4g\n", symtab[i].value);
+		fprintf(fp, "\t->\t%4.4g\n", symtab[i].value);
 	}
+	fclose(fp);
 }
-
-/*
-void freeSymtab() {
-	for (int i = 0; i < cur; ++i) {
-		free(symtab[i].name);
-
-		struct ref *temp = symtab[i].reflist, *prev;
-		while (!temp) {
-			prev = temp;
-			temp = temp->next;
-			free(prev);
-		}
-	}
-	cur = 0;
-}
-*/

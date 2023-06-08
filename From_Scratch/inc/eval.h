@@ -4,6 +4,6 @@
 #include "ast_symtab_headers.h"
 
 double eval(struct ast *a);
-void displayAst(struct ast *a, int level);
+void displayAstHandle(struct ast *a);
 
 #endif

@@ -10,7 +10,7 @@
 
 %%
 
-	/* single character ops */
+	/* single character operators */
 "+" |
 "-" |
 "*" |
@@ -22,8 +22,7 @@
 "(" |
 ")"     { return yytext[0]; }
 
-
- /* comparison ops */
+ /* comparison operators */
 ">"     { yylval.fn = 1; return CMP; }
 "<"     { yylval.fn = 2; return CMP; }
 "<>"    { yylval.fn = 3; return CMP; }
@@ -41,9 +40,11 @@
 "for" { return FOR; }
 "to"	{ return TO; }
 
+
 	/* number */
 [0-9]+("."?[0-9]+)? 	{ yylval.d = atof(yytext); return NUM; }
 
+	/* name */
 ([a-zA-Z]+[_a-zA-Z0-9]*) 	{ yylval.s = lookup(yytext); return NAME; }
 
 [ \t]+

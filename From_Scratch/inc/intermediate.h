@@ -13,6 +13,7 @@ typedef struct LABEL {
 	char *name;
 } label;
 
-type *intermediateCode(struct ast *a);
+type *intermediateCode(struct ast *a, FILE *fp);
+void intermediateCodeHandle(struct ast *a);
 
 #endif

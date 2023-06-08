@@ -4,10 +4,11 @@ end for;
 
 for m = (2 + 3) to 10 do
 	k = p + q,
-	for l = (h + i) to 20 do 
-		r = s / t
-	end for
+	if a = b then 
+		n = m + k
+	end if 
 end for;
 
 i;
 m;
+r = 323;
