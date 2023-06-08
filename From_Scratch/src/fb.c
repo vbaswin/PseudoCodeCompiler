@@ -1,5 +1,6 @@
 #include "../inc/fb.h"
 #include "../inc/cwd.h"
+#include "../inc/lextab.h"
 #include "../inc/symtab.h"
 
 void yyerror(char *s, ...) {
@@ -19,6 +20,7 @@ int main(int argc, char **argv) {
 		}
 	}
 	yyparse();
+	print_lextab();
 	printrefs();
 
 

@@ -513,10 +513,11 @@ char *yytext;
 
 #include "../inc/fb.h"
 #include "../inc/symtab.h"
+#include "../inc/lextab.h"
 #include "../obj/fb.tab.h"
 
-#line 518 "obj/lex.yy.c"
 #line 519 "obj/lex.yy.c"
+#line 520 "obj/lex.yy.c"
 
 #define INITIAL 0
 
@@ -733,12 +734,12 @@ YY_DECL
 		}
 
 	{
-#line 11 "src/fb.l"
+#line 12 "src/fb.l"
 
 
-#line 14 "src/fb.l"
+#line 15 "src/fb.l"
 	/* single character operators */
-#line 741 "obj/lex.yy.c"
+#line 742 "obj/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -806,138 +807,138 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-#line 16 "src/fb.l"
-case 2:
 #line 17 "src/fb.l"
-case 3:
+case 2:
 #line 18 "src/fb.l"
-case 4:
+case 3:
 #line 19 "src/fb.l"
-case 5:
+case 4:
 #line 20 "src/fb.l"
-case 6:
+case 5:
 #line 21 "src/fb.l"
-case 7:
+case 6:
 #line 22 "src/fb.l"
-case 8:
+case 7:
 #line 23 "src/fb.l"
-case 9:
+case 8:
 #line 24 "src/fb.l"
+case 9:
+#line 25 "src/fb.l"
 case 10:
 YY_RULE_SETUP
-#line 24 "src/fb.l"
-{ return yytext[0]; }
+#line 25 "src/fb.l"
+{ insert_to_lextab(yytext, "single char operator"); return yytext[0]; }
 	YY_BREAK
 /* comparison operators */
 case 11:
 YY_RULE_SETUP
-#line 27 "src/fb.l"
-{ yylval.fn = 1; return CMP; }
+#line 28 "src/fb.l"
+{ insert_to_lextab(yytext, "comparison operator"); yylval.fn = 1; return CMP; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 28 "src/fb.l"
-{ yylval.fn = 2; return CMP; }
+#line 29 "src/fb.l"
+{ insert_to_lextab(yytext, "comparison operator"); yylval.fn = 2; return CMP; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 29 "src/fb.l"
-{ yylval.fn = 3; return CMP; }
+#line 30 "src/fb.l"
+{ insert_to_lextab(yytext, "comparison operator"); yylval.fn = 3; return CMP; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 30 "src/fb.l"
-{ yylval.fn = 4; return CMP; }
+#line 31 "src/fb.l"
+{ insert_to_lextab(yytext, "comparison operator"); yylval.fn = 4; return CMP; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 31 "src/fb.l"
-{ yylval.fn = 5; return CMP; }
+#line 32 "src/fb.l"
+{ insert_to_lextab(yytext, "comparison operator"); yylval.fn = 5; return CMP; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 32 "src/fb.l"
-{ yylval.fn = 6; return CMP; }
+#line 33 "src/fb.l"
+{ insert_to_lextab(yytext, "comparison operator"); yylval.fn = 6; return CMP; }
 	YY_BREAK
 /* keywords */
 case 17:
 YY_RULE_SETUP
-#line 35 "src/fb.l"
-{ return IF; }
+#line 36 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return IF; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 36 "src/fb.l"
-{ return THEN; }
+#line 37 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return THEN; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 37 "src/fb.l"
-{ return ELSE; }
+#line 38 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return ELSE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 38 "src/fb.l"
-{ return END; }
+#line 39 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return END; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 39 "src/fb.l"
-{ return WHILE; }
+#line 40 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return WHILE; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 40 "src/fb.l"
-{ return DO; }
+#line 41 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return DO; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 41 "src/fb.l"
-{ return FOR; }
+#line 42 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return FOR; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 42 "src/fb.l"
-{ return TO; }
+#line 43 "src/fb.l"
+{ insert_to_lextab(yytext, "keyword"); return TO; }
 	YY_BREAK
 /* number */
 case 25:
 YY_RULE_SETUP
-#line 46 "src/fb.l"
-{ yylval.d = atof(yytext); return NUM; }
+#line 47 "src/fb.l"
+{ insert_to_lextab(yytext, "number"); yylval.d = atof(yytext); return NUM; }
 	YY_BREAK
 /* name */
 case 26:
 YY_RULE_SETUP
-#line 49 "src/fb.l"
-{ yylval.s = lookup(yytext); return NAME; }
+#line 50 "src/fb.l"
+{ insert_to_lextab(yytext, "identifier"); yylval.s = lookup(yytext); return NAME; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 51 "src/fb.l"
+#line 52 "src/fb.l"
 
 	YY_BREAK
 case 28:
 /* rule 28 can match eol */
 YY_RULE_SETUP
-#line 52 "src/fb.l"
+#line 53 "src/fb.l"
 
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 54 "src/fb.l"
+#line 55 "src/fb.l"
 { yyerror("Mystery character %c\n", *yytext); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 56 "src/fb.l"
+#line 57 "src/fb.l"
 { return EOF; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 58 "src/fb.l"
+#line 59 "src/fb.l"
 ECHO;
 	YY_BREAK
-#line 940 "obj/lex.yy.c"
+#line 941 "obj/lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1952,6 +1953,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 58 "src/fb.l"
+#line 59 "src/fb.l"
 
 

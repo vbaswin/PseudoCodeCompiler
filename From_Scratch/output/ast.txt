@@ -1,43 +1,66 @@
-a =
+x =
     number   20
 
 
-b =
-    number   40
-
-
 if
+    ref team
+    x =
+        binop +
+            ref m
+            number    3
+
+
+For
+    i =
+        number    1
+    number    1
+    number    5
+    x =
+        binop +
+            ref a
+            ref b
+
+
+For
+    m =
+        binop +
+            number    2
+            number    3
     binop +
-        ref a
-        ref b
-    if
-        binop >
-            ref b
-            ref a
-        ref a
+        number    2
+        number    3
+    number   10
+    binop L
+        k =
+            binop +
+                ref p
+                ref q
+        if
+            a =
+                ref b
+            n =
+                binop +
+                    ref m
+                    ref k
 
 
-if
-    binop >
-        ref a
-        ref b
-    ref a
-else
-    ref b
+While
+    binop <
+        ref mi
+        number  100
+    mi =
+        binop +
+            ref mi
+            number   20
 
 
-if
-    binop >
-        ref a
-        ref b
-    ref a
-else
-    if
-        binop >
-            ref a
-            ref b
-        ref a
-    else
-        ref a
+ref i
+
+
+ref m
+
+
+r =
+    number  323
 
 

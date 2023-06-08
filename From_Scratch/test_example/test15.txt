@@ -1,3 +1,8 @@
+x = 20;
+if team then
+	x = m + 3
+end if;
+
 for i = 1 to 5 do 
 	x = a + b
 end for;
@@ -8,6 +13,10 @@ for m = (2 + 3) to 10 do
 		n = m + k
 	end if 
 end for;
+
+while mi < 100 do
+	mi = mi + 20
+end while;
 
 i;
 m;

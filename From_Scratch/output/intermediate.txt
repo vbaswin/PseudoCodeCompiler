@@ -1,39 +1,64 @@
 r1 = 20
-a = r1
+x = r1
 
 
-r2 = 40
-b = r2
-
-
-r3 = a + b
-if r3 goto l1
+if team goto l1
 goto l2
 l1:
-r4 = b > a
-if r4 goto l3
-goto l4
-l3:
-l4
+r2 = m + 3
+x = r2
 l2
 
 
-r5 = a > b
-if r5 goto l5
-goto l6
+l3:
+if i < 5 goto l4
+goto l5
+l4:
+r3 = a + b
+x = r3
+r4 = i + 1
+i = r4
+goto l3
 l5:
-l6
 
 
-r6 = a > b
-if r6 goto l7
-r7 = a > b
-if r7 goto l9
-goto l10
-l9:
-l10
+l6:
+r5 = 2 + 3
+if r5 < 10 goto l7
 goto l8
 l7:
-l8
+r6 = p + q
+k = r6
+r7 = b
+a = r7
+if a goto l9
+goto l10
+l9:
+r8 = m + k
+n = r8
+l10
+r9 = m + 1
+m = r9
+goto l6
+l8:
+
+
+l11:
+r10 = mi < 100
+if r10 goto l12
+goto l13
+l12:
+r11 = mi + 20
+mi = r11
+goto l11
+l13:
+
+
+
+
+
+
+r12 = 323
+r = r12
 
 
