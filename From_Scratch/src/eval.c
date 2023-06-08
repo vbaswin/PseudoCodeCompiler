@@ -110,7 +110,7 @@ void displayAst(struct ast *a, int level, FILE *fp) {
 
 		/* assignment */
 	case '=':
-		fprintf(fp, "%s =\n", ((struct symref *)a)->s->name);
+		fprintf(fp, "%s = \n", ((struct symref *)a)->s->name);
 		displayAst(((struct symasgn *)a)->v, level + 1, fp);
 		return;
 

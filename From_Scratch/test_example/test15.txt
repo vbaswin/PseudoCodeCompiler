@@ -1,4 +1,3 @@
-x = 20;
 if team then
 	x = m + 3
 end if;

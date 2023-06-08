@@ -1,0 +1,83 @@
+****LEXICAL ANALYSIS****
+
+if		keyword
+team		identifier
+then		keyword
+x		identifier
+=		single char operator
+m		identifier
++		single char operator
+3		number
+end		keyword
+if		keyword
+;		single char operator
+for		keyword
+i		identifier
+=		single char operator
+1		number
+to		keyword
+5		number
+do		keyword
+x		identifier
+=		single char operator
+a		identifier
++		single char operator
+b		identifier
+end		keyword
+for		keyword
+;		single char operator
+for		keyword
+m		identifier
+=		single char operator
+(		single char operator
+2		number
++		single char operator
+3		number
+)		single char operator
+to		keyword
+10		number
+do		keyword
+k		identifier
+=		single char operator
+p		identifier
++		single char operator
+q		identifier
+,		single char operator
+if		keyword
+a		identifier
+=		single char operator
+b		identifier
+then		keyword
+n		identifier
+=		single char operator
+m		identifier
++		single char operator
+k		identifier
+end		keyword
+if		keyword
+end		keyword
+for		keyword
+;		single char operator
+while		keyword
+mi		identifier
+<		comparison operator
+100		number
+do		keyword
+mi		identifier
+=		single char operator
+mi		identifier
++		single char operator
+20		number
+end		keyword
+while		keyword
+;		single char operator
+i		identifier
+;		single char operator
+m		identifier
+;		single char operator
+r		identifier
+=		single char operator
+323		number
+;		single char operator
+
+
