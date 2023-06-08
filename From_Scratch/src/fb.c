@@ -3,7 +3,7 @@
 #include "../inc/lextab.h"
 #include "../inc/symtab.h"
 
-void yyerror(char *s, ...) {
+void yyerror(const char *s, ...) {
 	va_list ap;
 	va_start(ap, s);
 

@@ -1,7 +1,7 @@
 #include "../inc/eval.h"
 #include "../inc/cwd.h"
 
-double eval(struct ast *a) {
+double eval(struct ast *a, FILE *fp) {
 	double v;
 
 	switch (a->nodetype) {
@@ -18,37 +18,36 @@ double eval(struct ast *a) {
 		/* assignment */
 	case '=':
 		v = ((struct symasgn *)a)->s->value =
-			eval(((struct symasgn *)a)->v);
+			eval(((struct symasgn *)a)->v, fp);
 		break;
 
 		/* expressions */
-	case '+': v = eval(a->l) + eval(a->r); break;
-	case '-': v = eval(a->l) - eval(a->r); break;
-	case '*': v = eval(a->l) * eval(a->r); break;
-	case '/': v = eval(a->l) / eval(a->r); break;
-	case '|': v = fabs(eval(a->l)); break;
+	case '+': v = eval(a->l, fp) + eval(a->r, fp); break;
+	case '-': v = eval(a->l, fp) - eval(a->r, fp); break;
+	case '*': v = eval(a->l, fp) * eval(a->r, fp); break;
+	case '/': v = eval(a->l, fp) / eval(a->r, fp); break;
+	case '|': v = fabs(eval(a->l, fp)); break;
 	case 'M':
-		v = -eval(a->l);
-		printf("%4.4g", v);
+		v = -eval(a->l, fp);
 		break;
 
 		/* comparisons */
-	case '1': v = (eval(a->l) > eval(a->r)) ? 1 : 0; break;
-	case '2': v = (eval(a->l) < eval(a->r)) ? 1 : 0; break;
-	case '3': v = (eval(a->l) != eval(a->r)) ? 1 : 0; break;
-	case '4': v = (eval(a->l) == eval(a->r)) ? 1 : 0; break;
-	case '5': v = (eval(a->l) >= eval(a->r)) ? 1 : 0; break;
-	case '6': v = (eval(a->l) <= eval(a->r)) ? 1 : 0; break;
+	case '1': v = (eval(a->l, fp) > eval(a->r, fp)) ? 1 : 0; break;
+	case '2': v = (eval(a->l, fp) < eval(a->r, fp)) ? 1 : 0; break;
+	case '3': v = (eval(a->l, fp) != eval(a->r, fp)) ? 1 : 0; break;
+	case '4': v = (eval(a->l, fp) == eval(a->r, fp)) ? 1 : 0; break;
+	case '5': v = (eval(a->l, fp) >= eval(a->r, fp)) ? 1 : 0; break;
+	case '6': v = (eval(a->l, fp) <= eval(a->r, fp)) ? 1 : 0; break;
 
 	case 'I':
-		if (eval(((struct astIf *)a)->cond) != 0) {
+		if (eval(((struct astIf *)a)->cond, fp) != 0) {
 			if (((struct astIf *)a)->tl) {
-				v = eval(((struct astIf *)a)->tl);
+				v = eval(((struct astIf *)a)->tl, fp);
 			} else
 				v = 0.0;
 		} else {
 			if (((struct astIf *)a)->el) {
-				v = eval(((struct astIf *)a)->el);
+				v = eval(((struct astIf *)a)->el, fp);
 			} else {
 				v = 0.0;
 			}
@@ -56,35 +55,44 @@ double eval(struct ast *a) {
 		break;
 
 	case 'L':
-		eval(a->l);
-		v = eval(a->r);
+		eval(a->l, fp);
+		v = eval(a->r, fp);
 		break;
 
 	case 'W':
 		v = 0.0; /* a default value */
 
 		if (((struct astWh *)a)->tl) {
-			while (eval(((struct astWh *)a)->cond) != 0)
-				v = eval(((struct astWh *)a)->tl);
+			while (eval(((struct astWh *)a)->cond, fp) != 0) {
+				v = eval(((struct astWh *)a)->tl, fp);
+			}
 		}
 		break; /* last value is value */
 
 	case 'F':
 		v = 0.0; /* a default value */
+		((struct symref *)((struct astFor *)a))->s->value = (int)(eval(((struct astFor *)a)->exp1, fp));
 
 		if (((struct astFor *)a)->tl) {
-			double val = ((struct symref *)((struct astFor *)a))->s->value;
-
-			for (int i = (int)(eval(((struct astFor *)a)->exp1)); i < (int)(eval(((struct astFor *)a)->exp2)); ++i) {
-				v = eval(((struct astFor *)a)->tl);
-				++val;
+			for (int i = (int)(eval(((struct astFor *)a)->exp1, fp)); i < (int)(eval(((struct astFor *)a)->exp2, fp)); ++i) {
+				v = eval(((struct astFor *)a)->tl, fp);
+				++((struct symref *)((struct astFor *)a))->s->value;
 			}
-			((struct symref *)a)->s->value = val;
 		}
 		break;
 
+	case 'P':
+		switch (a->l->nodetype) {
+		case 'K':
+			fprintf(fp, "%4.4g\n", ((struct numval *)a->l)->number);
+			break;
+		case 'N':
+			fprintf(fp, "%4.4g\n", ((struct symref *)a->l)->s->value);
+			break;
+		}
+		break;
 
-	default: printf("internal error: bad node %c\n", a->nodetype);
+	default: fprintf(fp, "internal error: bad node %c\n", a->nodetype);
 	}
 	return v;
 }
@@ -213,6 +221,22 @@ void displayAstHandle(struct ast *a) {
 	}
 
 	displayAst(a, 0, fp);
+	fprintf(fp, "\n\n");
+	fclose(fp);
+}
+
+void displayEvalHandle(struct ast *a) {
+	char completePath[500];
+	getCompletePath(completePath, "/output/output.txt");
+
+	FILE *fp = fopen(completePath, "a+");
+
+	if (fp == NULL) {
+		printf("Error opening the file.\n");
+		return;
+	}
+
+	eval(a, fp);
 	fprintf(fp, "\n\n");
 	fclose(fp);
 }

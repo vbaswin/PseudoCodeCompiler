@@ -1,0 +1,9 @@
+for i = 5 to 20 do
+	print(i)
+end for;
+
+n = 30;
+while n < 35 do 
+	print(n),
+	n = n + 1
+end while;

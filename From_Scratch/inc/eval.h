@@ -3,7 +3,7 @@
 
 #include "ast_symtab_headers.h"
 
-double eval(struct ast *a);
-void displayAstHandle(struct ast *a);
+void displayAstHandle(struct ast *);
+void displayEvalHandle(struct ast *a);
 
 #endif

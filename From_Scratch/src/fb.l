@@ -40,7 +40,8 @@
 "do"    { insert_to_lextab(yytext, "keyword"); return DO; }
 "for" { insert_to_lextab(yytext, "keyword"); return FOR; }
 "to"	{ insert_to_lextab(yytext, "keyword"); return TO; }
-
+"print" { return PRINT; }
+ 
 
 	/* number */
 [0-9]+("."?[0-9]+)? 	{ insert_to_lextab(yytext, "number"); yylval.d = atof(yytext); return NUM; }

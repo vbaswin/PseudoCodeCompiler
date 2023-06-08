@@ -1,0 +1,18 @@
+i = 11;
+if i < 10 then 
+	i = i + 1, 
+	print(i)
+else 
+	j = 1,
+	while j < 5 do 
+		print(j),
+		for k = 0 to 3 do 
+			print(k),
+			if k < 2 then 
+				z = 100,
+				print(z)
+			end if 
+		end for ,
+		j = j + 1
+	end while 
+end if;

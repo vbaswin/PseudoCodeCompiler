@@ -1,60 +1,25 @@
-if team goto l1
-goto l2
 l1:
-r1 = m + 3
-x = r1
-l2
-
-
-l3:
-if i < 5 goto l4
-goto l5
-l4:
-r2 = a + b
-x = r2
-r3 = i + 1
-i = r3
+if i < 20 goto l2
 goto l3
-l5:
+l2:
+r1 = i + 1
+i = r1
+goto l1
+l3:
 
 
-l6:
-r4 = 2 + 3
-if r4 < 10 goto l7
-goto l8
-l7:
-r5 = p + q
-k = r5
-r6 = b
-a = r6
-if a goto l9
-goto l10
-l9:
-r7 = m + k
-n = r7
-l10
-r8 = m + 1
-m = r8
+r2 = 30
+n = r2
+
+
+l4:
+r3 = n < 35
+if r3 goto l5
 goto l6
-l8:
-
-
-l11:
-r9 = mi < 100
-if r9 goto l12
-goto l13
-l12:
-r10 = mi + 20
-mi = r10
-goto l11
-l13:
-
-
-
-
-
-
-r11 = 323
-r = r11
+l5:
+r4 = n + 1
+n = r4
+goto l4
+l6:
 
 
