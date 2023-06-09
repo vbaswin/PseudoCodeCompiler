@@ -1,38 +1,39 @@
 ****LEXICAL ANALYSIS****
 
-for		keyword
-i		identifier
+n		identifier
 =		single char operator
 5		number
-to		keyword
-20		number
-do		keyword
+;		single char operator
+for		keyword
+k		identifier
+=		single char operator
 (		single char operator
-i		identifier
+n		identifier
+-		single char operator
+3		number
+)		single char operator
+to		keyword
+5		number
+do		keyword
+n		identifier
+=		single char operator
+n		identifier
+*		single char operator
+5		number
+,		single char operator
+(		single char operator
+n		identifier
 )		single char operator
 end		keyword
 for		keyword
 ;		single char operator
-n		identifier
-=		single char operator
-30		number
+(		single char operator
+k		identifier
+)		single char operator
 ;		single char operator
-while		keyword
-n		identifier
-<		comparison operator
-35		number
-do		keyword
 (		single char operator
 n		identifier
 )		single char operator
-,		single char operator
-n		identifier
-=		single char operator
-n		identifier
-+		single char operator
-1		number
-end		keyword
-while		keyword
 ;		single char operator
 
 

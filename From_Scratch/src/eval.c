@@ -17,7 +17,7 @@ double eval(struct ast *a, FILE *fp) {
 
 		/* assignment */
 	case '=':
-		v = ((struct symasgn *)a)->s->value =
+		v = ((struct symref *)(((struct symasgn *)a)->s))->s->value =
 			eval(((struct symasgn *)a)->v, fp);
 		break;
 
@@ -71,12 +71,12 @@ double eval(struct ast *a, FILE *fp) {
 
 	case 'F':
 		v = 0.0; /* a default value */
-		((struct symref *)((struct astFor *)a))->s->value = (int)(eval(((struct astFor *)a)->exp1, fp));
+		((struct symref *)(((struct astFor *)a)->name))->s->value = (int)(eval(((struct astFor *)a)->exp1, fp));
 
 		if (((struct astFor *)a)->tl) {
 			for (int i = (int)(eval(((struct astFor *)a)->exp1, fp)); i < (int)(eval(((struct astFor *)a)->exp2, fp)); ++i) {
 				v = eval(((struct astFor *)a)->tl, fp);
-				++((struct symref *)((struct astFor *)a))->s->value;
+				++((struct symref *)((struct astFor *)a)->name)->s->value;
 			}
 		}
 		break;
@@ -84,15 +84,15 @@ double eval(struct ast *a, FILE *fp) {
 	case 'P':
 		switch (a->l->nodetype) {
 		case 'K':
-			fprintf(fp, "%4.4g\n", ((struct numval *)a->l)->number);
+			fprintf(fp, "\t%4.4g\n", ((struct numval *)a->l)->number);
 			break;
 		case 'N':
-			fprintf(fp, "%4.4g\n", ((struct symref *)a->l)->s->value);
+			fprintf(fp, "\t%4.4g\n", ((struct symref *)a->l)->s->value);
 			break;
 		}
 		break;
 
-	default: fprintf(fp, "internal error: bad node %c\n", a->nodetype);
+	default: fprintf(fp, "\tinternal error: bad node %c\n", a->nodetype);
 	}
 	return v;
 }
@@ -118,7 +118,8 @@ void displayAst(struct ast *a, int level, FILE *fp) {
 
 		/* assignment */
 	case '=':
-		fprintf(fp, "%s = \n", ((struct symref *)a)->s->name);
+		fprintf(fp, "=\n");
+		displayAst(((struct symasgn *)a)->s, level + 1, fp);
 		displayAst(((struct symasgn *)a)->v, level + 1, fp);
 		return;
 
@@ -196,11 +197,15 @@ void displayAst(struct ast *a, int level, FILE *fp) {
 
 	case 'F':
 		fprintf(fp, "For\n");
-		displayAst(newasgn(((struct symref *)a)->s, ((struct astFor *)a)->exp1), level + 1, fp);
+		displayAst(newasgn((((struct astFor *)a)->name), ((struct astFor *)a)->exp1), level + 1, fp);
 		displayAst(((struct astFor *)a)->exp1, level + 1, fp);
 		displayAst(((struct astFor *)a)->exp2, level + 1, fp);
 		if (((struct astFor *)a)->tl)
 			displayAst(((struct astFor *)a)->tl, level + 1, fp);
+		return;
+	case 'P':
+		fprintf(fp, "print\n");
+		displayAst(a->l, level + 1, fp);
 		return;
 
 	default:
@@ -235,7 +240,7 @@ void displayEvalHandle(struct ast *a) {
 		printf("Error opening the file.\n");
 		return;
 	}
-
+	fprintf(fp, ">");
 	eval(a, fp);
 	fprintf(fp, "\n\n");
 	fclose(fp);

@@ -16,7 +16,7 @@ struct numval {
 
 struct symasgn {
 	int nodetype; /* type = */
-	struct symbol *s;
+	struct ast *s;
 	struct ast *v; /* value */
 };
 
@@ -48,7 +48,7 @@ struct astFor {
 };
 
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
-struct ast *newasgn(struct symbol *s, struct ast *v);
+struct ast *newasgn(struct ast *s, struct ast *v);
 struct ast *newnum(double d);
 struct ast *newref(struct symbol *s);
 struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);

@@ -1,0 +1,7 @@
+a = 2;
+if a > 1 then 
+	print(a),
+	if (a > 2) then 
+		print(b)
+	end if
+end if;

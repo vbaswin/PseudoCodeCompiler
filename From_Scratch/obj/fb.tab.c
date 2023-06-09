@@ -1605,7 +1605,7 @@ yyreduce:
 
   case 7: /* stmt: FOR NAME '=' exp TO exp DO stmts END FOR  */
 #line 47 "src/fb.y"
-                                                   { (yyval.a) = newFor('F', (struct ast *)(yyvsp[-8].s), (yyvsp[-6].a), (yyvsp[-4].a), (yyvsp[-2].a)); }
+                                                   { (yyval.a) = newFor('F', newref((yyvsp[-8].s)), (yyvsp[-6].a), (yyvsp[-4].a), (yyvsp[-2].a)); }
 #line 1610 "obj/fb.tab.c"
     break;
 
@@ -1693,7 +1693,7 @@ yyreduce:
 
   case 22: /* exp: NAME '=' exp  */
 #line 71 "src/fb.y"
-                                        { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
+                                        { (yyval.a) = newasgn(newref((yyvsp[-2].s)), (yyvsp[0].a)); }
 #line 1698 "obj/fb.tab.c"
     break;
 

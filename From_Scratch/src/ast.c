@@ -17,7 +17,7 @@ struct ast *newnum(double d) {
 	return (struct ast *)a;
 }
 
-struct ast *newasgn(struct symbol *s, struct ast *v) {
+struct ast *newasgn(struct ast *s, struct ast *v) {
 	struct symasgn *a = malloc(sizeof(struct symasgn));
 
 	a->nodetype = '=';

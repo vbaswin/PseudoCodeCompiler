@@ -44,7 +44,7 @@ prog:
 stmt: IF exp THEN stmts END IF 				{ $$ = newIf('I', $2, $4, NULL, NULL); }
 	| IF exp THEN stmts ELSE stmts END IF 	{ $$ = newIf('I', $2, $4,NULL, $6);}
 	| WHILE exp DO stmts END WHILE			{ $$ = newWh('W', $2, $4); }
-	| FOR NAME '=' exp TO exp DO stmts END FOR { $$ = newFor('F', (struct ast *)$2, $4, $6, $8); }
+	| FOR NAME '=' exp TO exp DO stmts END FOR { $$ = newFor('F', newref($2), $4, $6, $8); }
     | exp
 	;
 
@@ -68,7 +68,7 @@ exp:
    | '-' exp %prec UMINUS 	{ $$ = newast('M', $2, NULL); }
    | NUM	              	{ $$ = newnum($1); }
    | NAME				  	{ $$ = newref($1); }
-   | NAME '=' exp			{ $$ = newasgn($1, $3); }
+   | NAME '=' exp			{ $$ = newasgn(newref($1), $3); }
    ;
 
 %%

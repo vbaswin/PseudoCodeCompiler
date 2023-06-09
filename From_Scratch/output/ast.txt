@@ -1,24 +1,33 @@
-For
-    i = 
-        number    5
+=
+    ref n
     number    5
-    number   20
-    bad P
 
 
-n = 
-    number   30
-
-
-While
-    binop <
+For
+    =
+        ref k
+        binop -
+            ref n
+            number    3
+    binop -
         ref n
-        number   35
+        number    3
+    number    5
     binop L
-        bad P
-        n = 
-            binop +
+        =
+            ref n
+            binop *
                 ref n
-                number    1
+                number    5
+        print
+            ref n
+
+
+print
+    ref k
+
+
+print
+    ref n
 
 

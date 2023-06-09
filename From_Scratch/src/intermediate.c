@@ -47,7 +47,7 @@ type *newType_printCode(type *first, type *second, char *op, FILE *fp) {
 		newType = newTypeCreate();
 		newType->num = 0;
 		newType->reg = 0;
-		newType->str = strdup(((struct symasgn *)first)->s->name);
+		newType->str = strdup(((struct symref *)(((struct symasgn *)first)->s))->s->name);
 		fprintf(fp, "%s = %s\n", newType->str, newType_printCode(first, second, "=2", fp)->str);
 		return newType;
 	}
@@ -215,7 +215,7 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		if (cond->reg)
 			fprintf(fp, "%s", cond->str);
 		else if (cond->str || cond->num)
-			fprintf(fp, "%s", ((struct symref *)((struct astFor *)a))->s->name);
+			fprintf(fp, "%s", ((struct symref *)(((struct astFor *)a)->name))->s->name);
 
 		fprintf(fp, " < ");
 		cond = intermediateCode(((struct astFor *)a)->exp2, fp);
@@ -231,8 +231,8 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		}
 
 		newType = newTypePrint(fp);
-		fprintf(fp, "%s + 1\n", ((struct symref *)((struct astFor *)a))->s->name);
-		fprintf(fp, "%s = %s\n", ((struct symref *)((struct astFor *)a))->s->name, newType->str);
+		fprintf(fp, "%s + 1\n", ((struct symref *)(((struct astFor *)a)->name))->s->name);
+		fprintf(fp, "%s = %s\n", ((struct symref *)(((struct astFor *)a)->name))->s->name, newType->str);
 
 		fprintf(fp, "goto %s\n", lab1->name);
 		fprintf(fp, "%s:\n", lab3->name);

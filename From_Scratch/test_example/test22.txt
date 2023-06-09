@@ -1,0 +1,7 @@
+n = 5;
+for k = (n - 3) to 5 do 
+	n = n * 5,
+	print(n)
+end for;
+print(k);
+print(n);
