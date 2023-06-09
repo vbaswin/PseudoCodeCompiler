@@ -1,7 +1,9 @@
 a = 2;
 if a > 1 then 
 	print(a),
-	if (a > 2) then 
-		print(b)
+	if (a < 2) then 
+		print("greater than 2")
+	else 
+		print("not greater than 2")
 	end if
 end if;

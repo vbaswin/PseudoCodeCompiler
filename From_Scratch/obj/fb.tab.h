@@ -56,17 +56,18 @@ extern int yydebug;
     YYUNDEF = 257,                 /* "invalid token"  */
     NUM = 258,                     /* NUM  */
     NAME = 259,                    /* NAME  */
-    IF = 260,                      /* IF  */
-    THEN = 261,                    /* THEN  */
-    ELSE = 262,                    /* ELSE  */
-    END = 263,                     /* END  */
-    WHILE = 264,                   /* WHILE  */
-    DO = 265,                      /* DO  */
-    FOR = 266,                     /* FOR  */
-    TO = 267,                      /* TO  */
-    PRINT = 268,                   /* PRINT  */
-    CMP = 269,                     /* CMP  */
-    UMINUS = 270                   /* UMINUS  */
+    STRING = 260,                  /* STRING  */
+    IF = 261,                      /* IF  */
+    THEN = 262,                    /* THEN  */
+    ELSE = 263,                    /* ELSE  */
+    END = 264,                     /* END  */
+    WHILE = 265,                   /* WHILE  */
+    DO = 266,                      /* DO  */
+    FOR = 267,                     /* FOR  */
+    TO = 268,                      /* TO  */
+    PRINT = 269,                   /* PRINT  */
+    CMP = 270,                     /* CMP  */
+    UMINUS = 271                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -81,8 +82,9 @@ union YYSTYPE
 	double d;
 	struct symbol *s;
 	int fn;
+	char *str;
 
-#line 86 "obj/fb.tab.h"
+#line 88 "obj/fb.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

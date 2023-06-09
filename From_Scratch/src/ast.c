@@ -74,3 +74,12 @@ struct ast *newFor(int nodetype, struct ast *name, struct ast *exp1, struct ast 
 	a->tl = tl;
 	return (struct ast *)a;
 }
+
+struct ast *newStr(int nodetype, char *s) {
+	struct astStr *a = malloc(sizeof(struct astStr));
+	a->str = malloc(sizeof(char) * 100);
+
+	a->nodetype = nodetype;
+	a->str = strdup(s);
+	return (struct ast *)a;
+}

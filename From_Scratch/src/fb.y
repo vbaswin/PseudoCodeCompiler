@@ -17,13 +17,19 @@ void writeOutput(double);
 	double d;
 	struct symbol *s;
 	int fn;
+	char *str;
 }
 
 /* declare tokens */
 %token <d> NUM
 %token <s> NAME
+%token <str> STRING
 
-%token IF THEN ELSE END WHILE DO FOR TO PRINT
+/* flow */
+%token IF THEN ELSE END WHILE DO FOR TO 
+
+/* display */
+%token PRINT 
 
 %nonassoc <fn> CMP
 %right '='
@@ -68,6 +74,7 @@ exp:
    | '-' exp %prec UMINUS 	{ $$ = newast('M', $2, NULL); }
    | NUM	              	{ $$ = newnum($1); }
    | NAME				  	{ $$ = newref($1); }
+   | STRING					{ $$ = newStr('S',$1); }
    | NAME '=' exp			{ $$ = newasgn(newref($1), $3); }
    ;
 

@@ -1,27 +1,28 @@
 #include "../inc/eval.h"
 #include "../inc/cwd.h"
 
+char *trimQuotes(char *s);
+
 double eval(struct ast *a, FILE *fp) {
-	double v;
+	double v = 0.0;
 
 	switch (a->nodetype) {
-		/* constant */
 	case 'K':
 		v = ((struct numval *)a)->number;
 		break;
 
-		/* name reference */
+	case 'S':
+		break;
+
 	case 'N':
 		v = ((struct symref *)a)->s->value;
 		break;
 
-		/* assignment */
 	case '=':
 		v = ((struct symref *)(((struct symasgn *)a)->s))->s->value =
 			eval(((struct symasgn *)a)->v, fp);
 		break;
 
-		/* expressions */
 	case '+': v = eval(a->l, fp) + eval(a->r, fp); break;
 	case '-': v = eval(a->l, fp) - eval(a->r, fp); break;
 	case '*': v = eval(a->l, fp) * eval(a->r, fp); break;
@@ -31,7 +32,6 @@ double eval(struct ast *a, FILE *fp) {
 		v = -eval(a->l, fp);
 		break;
 
-		/* comparisons */
 	case '1': v = (eval(a->l, fp) > eval(a->r, fp)) ? 1 : 0; break;
 	case '2': v = (eval(a->l, fp) < eval(a->r, fp)) ? 1 : 0; break;
 	case '3': v = (eval(a->l, fp) != eval(a->r, fp)) ? 1 : 0; break;
@@ -60,17 +60,17 @@ double eval(struct ast *a, FILE *fp) {
 		break;
 
 	case 'W':
-		v = 0.0; /* a default value */
+		v = 0.0;
 
 		if (((struct astWh *)a)->tl) {
 			while (eval(((struct astWh *)a)->cond, fp) != 0) {
 				v = eval(((struct astWh *)a)->tl, fp);
 			}
 		}
-		break; /* last value is value */
+		break;
 
 	case 'F':
-		v = 0.0; /* a default value */
+		v = 0.0;
 		((struct symref *)(((struct astFor *)a)->name))->s->value = (int)(eval(((struct astFor *)a)->exp1, fp));
 
 		if (((struct astFor *)a)->tl) {
@@ -89,6 +89,9 @@ double eval(struct ast *a, FILE *fp) {
 		case 'N':
 			fprintf(fp, "\t%4.4g\n", ((struct symref *)a->l)->s->value);
 			break;
+		case 'S':
+			fprintf(fp, "\t%s\n", trimQuotes(strdup(((struct astStr *)a->l)->str)));
+			break;
 		}
 		break;
 
@@ -106,24 +109,20 @@ void displayAst(struct ast *a, int level, FILE *fp) {
 	}
 
 	switch (a->nodetype) {
-		/* constant */
 	case 'K':
 		fprintf(fp, "number %4.4g\n", ((struct numval *)a)->number);
 		break;
 
-		/* name reference */
 	case 'N':
 		fprintf(fp, "ref %s\n", ((struct symref *)a)->s->name);
 		break;
 
-		/* assignment */
 	case '=':
 		fprintf(fp, "=\n");
 		displayAst(((struct symasgn *)a)->s, level + 1, fp);
 		displayAst(((struct symasgn *)a)->v, level + 1, fp);
 		return;
 
-		/* expressions */
 	case '+':
 	case '-':
 	case '*':
@@ -208,6 +207,10 @@ void displayAst(struct ast *a, int level, FILE *fp) {
 		displayAst(a->l, level + 1, fp);
 		return;
 
+	case 'S':
+		fprintf(fp, "string %s\n", ((struct astStr *)a)->str);
+		return;
+
 	default:
 		fprintf(fp, "bad %c\n", a->nodetype);
 		return;
@@ -244,4 +247,13 @@ void displayEvalHandle(struct ast *a) {
 	eval(a, fp);
 	fprintf(fp, "\n\n");
 	fclose(fp);
+}
+
+char *trimQuotes(char *s) {
+	char *temp = strdup(s);
+	for (int i = 1, j = 0; i < strlen(s) - 1; ++i, ++j)
+		s[j] = temp[i];
+	s[strlen(temp) - 2] = '\0';
+
+	return s;
 }

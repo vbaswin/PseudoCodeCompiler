@@ -3,8 +3,7 @@
 
 #include "basic.h"
 
-/* symbol table */
-struct symbol { /* a variable name */
+struct symbol {
 	char *name;
 	double value;
 };

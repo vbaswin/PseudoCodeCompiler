@@ -1,0 +1,14 @@
+for i = 0 to 5 do 
+	for j = 20 to 25 do 
+		print("hi"),
+	end for,
+	print(i)
+end for;
+
+for i = 2 to 10 do 
+	print("Team 5"),
+	for m = 2 to 5 do 
+		print(m),
+	end for
+end for;
+

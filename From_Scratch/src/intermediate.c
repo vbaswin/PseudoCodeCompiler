@@ -74,21 +74,18 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 	newType->str = 0;
 
 	switch (a->nodetype) {
-	/* constant */
 	case 'K':
 		newType->num = ((struct numval *)a)->number;
 		newType->reg = 0;
 		newType->str = 0;
 		return newType;
 
-	/* name reference */
 	case 'N':
 		newType->num = 0;
 		newType->reg = 0;
 		newType->str = strdup(((struct symref *)a)->s->name);
 		return newType;
 
-	/* expressions */
 	case '=':
 		right = intermediateCode(((struct symasgn *)a)->v, fp);
 		return newType_printCode((type *)a, right, "=", fp);
@@ -134,12 +131,6 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		right = intermediateCode(a->r, fp);
 		return newType_printCode(left, right, "<=", fp);
 
-
-		// case 'M':
-		// 	fprintf(fp,"unop %c\n", a->nodetype);
-		// 	displayAst(a->l, level + 1);
-		// 	return;
-
 	case 'I':
 		cond = newTypeCreate();
 		label *lab1 = newLabPrint(), *lab2 = newLabPrint();
@@ -163,11 +154,6 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		}
 		fprintf(fp, "%s\n", lab2->name);
 
-		// if (((struct astIf *)a)->el) {
-		// 	fprintf(fp,"%*s", 4 * level, "");
-		// 	fprintf(fp,"else\n");
-		// 	displayAst(((struct astIf *)a)->el, level + 1);
-		// }
 		return newType;
 
 	case 'L':
@@ -208,13 +194,12 @@ type *intermediateCode(struct ast *a, FILE *fp) {
 		lab3 = newLabPrint();
 
 		fprintf(fp, "%s:\n", lab1->name);
-		if (((struct astFor *)a)->exp1)
-			cond = intermediateCode(((struct astFor *)a)->exp1, fp);
+		cond = intermediateCode(((struct astFor *)a)->exp1, fp);
 
 		fprintf(fp, "if ");
 		if (cond->reg)
 			fprintf(fp, "%s", cond->str);
-		else if (cond->str || cond->num)
+		else
 			fprintf(fp, "%s", ((struct symref *)(((struct astFor *)a)->name))->s->name);
 
 		fprintf(fp, " < ");

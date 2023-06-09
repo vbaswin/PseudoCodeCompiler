@@ -1,21 +1,10 @@
-r1 = 5
-n = r1
-
-
 l1:
-r2 = n - 3
-if r2 < 5 goto l2
+if i < 10 goto l2
 goto l3
 l2:
-r3 = n * 5
-n = r3
-r4 = k + 1
-k = r4
+r1 = i + 1
+i = r1
 goto l1
 l3:
-
-
-
-
 
 

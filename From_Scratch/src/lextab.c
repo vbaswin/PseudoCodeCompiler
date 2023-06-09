@@ -20,10 +20,17 @@ void print_lextab() {
 		printf("Error opening the file.\n");
 		return;
 	}
+	int max_sz = -100000, sz;
+
+	for (int i = 0; lextab[i].name != NULL && i < ind; i++) {
+		sz = strlen(lextab[i].name);
+		if (sz > max_sz)
+			max_sz = sz;
+	}
 
 	fprintf(fp, "****LEXICAL ANALYSIS****\n\n");
 	for (int i = 0; lextab[i].name != NULL && i < ind; i++) {
-		fprintf(fp, "%s\t\t%s\n", lextab[i].name, lextab[i].type);
+		fprintf(fp, "%-*s%s\n", max_sz + 4, lextab[i].name, lextab[i].type);
 	}
 
 	fprintf(fp, "\n\n");

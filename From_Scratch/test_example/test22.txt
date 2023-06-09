@@ -1,7 +1,12 @@
 n = 5;
+
 for k = (n - 3) to 5 do 
 	n = n * 5,
-	print(n)
+	print(n),
+	print("aswin is doing programming"),
+	print("hi")
 end for;
+
 print(k);
+print(0);
 print(n);

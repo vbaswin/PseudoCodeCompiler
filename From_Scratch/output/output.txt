@@ -1,13 +1,12 @@
->
-
->	  25
-	 125
-	 625
-
-
->	   5
-
-
->	 625
+>	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
+	Hello World!
 
 

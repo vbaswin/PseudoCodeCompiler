@@ -7,6 +7,7 @@
 #include "../inc/lextab.h"
 #include "../obj/fb.tab.h"
 
+
 %}
 
 %%
@@ -42,6 +43,9 @@
 "to"	{ insert_to_lextab(yytext, "keyword"); return TO; }
 "print" { return PRINT; }
  
+
+	/* string */
+\"([ a-zA-Z0-9!]+)\" { yylval.str = yytext; insert_to_lextab(yylval.str,"string"); return STRING; }
 
 	/* number */
 [0-9]+("."?[0-9]+)? 	{ insert_to_lextab(yytext, "number"); yylval.d = atof(yytext); return NUM; }

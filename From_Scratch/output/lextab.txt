@@ -1,39 +1,17 @@
 ****LEXICAL ANALYSIS****
 
-n		identifier
-=		single char operator
-5		number
-;		single char operator
-for		keyword
-k		identifier
-=		single char operator
-(		single char operator
-n		identifier
--		single char operator
-3		number
-)		single char operator
-to		keyword
-5		number
-do		keyword
-n		identifier
-=		single char operator
-n		identifier
-*		single char operator
-5		number
-,		single char operator
-(		single char operator
-n		identifier
-)		single char operator
-end		keyword
-for		keyword
-;		single char operator
-(		single char operator
-k		identifier
-)		single char operator
-;		single char operator
-(		single char operator
-n		identifier
-)		single char operator
-;		single char operator
+for               keyword
+i                 identifier
+=                 single char operator
+0                 number
+to                keyword
+10                number
+do                keyword
+(                 single char operator
+"Hello World!"    string
+)                 single char operator
+end               keyword
+for               keyword
+;                 single char operator
 
 
