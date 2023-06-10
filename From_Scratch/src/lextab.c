@@ -2,7 +2,7 @@
 #include "../inc/cwd.h"
 
 int ind = 0;
-struct table lextab[100];
+struct table lextab[10000];
 
 void insert_to_lextab(char *name, char *type) {
 	strcpy(lextab[ind].name, strdup(name));

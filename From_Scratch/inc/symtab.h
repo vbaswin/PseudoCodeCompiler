@@ -8,7 +8,7 @@ struct symbol {
 	double value;
 };
 
-extern struct symbol symtab[100];
+extern struct symbol symtab[1000];
 struct symbol *lookup(char *);
 struct symbol *newassign(char *, double);
 

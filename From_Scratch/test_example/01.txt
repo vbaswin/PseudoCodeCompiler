@@ -1,4 +1,0 @@
-Tokens are used to identify and classify different types of lexemes (lexical units) in the input text.
-
-The resulting integer value is assigned to the yylval variable. This allows the parser to access the numerical value associated with the NUM token.
-The parser can then retrieve the actual numerical value from yylval when it encounters the NUM token during parsing.

@@ -1,7 +1,0 @@
-n = 1;
-m =5;
-
-while m > n do 
-	i = i + 1,
-	n = n + 1
-end while;

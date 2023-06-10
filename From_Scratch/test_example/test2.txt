@@ -7,4 +7,6 @@ for i = 1  to 10 do
 	m = m * 2
 end for;
 
+print(m);
+
 m;

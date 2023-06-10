@@ -1,13 +1,20 @@
+a = 10;
+b = 2;
+
 if a > b then 
 	c = a + b,
 	z = y/x,
+	print("hello"),
 	if l then 
 		p = h + 1,
+		print("hi"),
 		if 0 then 
 			o = o / 2
-		end if
+		end if,
+		print(p)
 	else 
-		r = r * 2
+		r = r * 2,
+		print(r)
 	end if 
 else 
 	m * n

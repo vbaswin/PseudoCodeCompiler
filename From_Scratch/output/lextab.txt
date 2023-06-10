@@ -1,74 +1,25 @@
 ****LEXICAL ANALYSIS****
 
-i        identifier
-=        single char operator
-11       number
-;        single char operator
-if       keyword
-i        identifier
-<        comparison operator
-10       number
-then     keyword
-i        identifier
-=        single char operator
-i        identifier
-+        single char operator
-1        number
-,        single char operator
-(        single char operator
-i        identifier
-)        single char operator
-else     keyword
-j        identifier
-=        single char operator
-1        number
-,        single char operator
-while    keyword
-j        identifier
-<        comparison operator
-5        number
-do       keyword
-(        single char operator
-j        identifier
-)        single char operator
-,        single char operator
-for      keyword
-k        identifier
-=        single char operator
-0        number
-to       keyword
-3        number
-do       keyword
-(        single char operator
-k        identifier
-)        single char operator
-,        single char operator
-if       keyword
-k        identifier
-<        comparison operator
-2        number
-then     keyword
-z        identifier
-=        single char operator
-100      number
-,        single char operator
-(        single char operator
-z        identifier
-)        single char operator
-end      keyword
-if       keyword
-end      keyword
-for      keyword
-,        single char operator
-j        identifier
-=        single char operator
-j        identifier
-+        single char operator
-1        number
-end      keyword
-while    keyword
-end      keyword
-if       keyword
-;        single char operator
+for               keyword
+i                 identifier
+=                 single char operator
+0                 number
+to                keyword
+10                number
+do                keyword
+(                 single char operator
+"Hello World!"    string
+)                 single char operator
+end               keyword
+for               keyword
+;                 single char operator
+aswin             identifier
+=                 single char operator
+100               number
+;                 single char operator
+(                 single char operator
+aswin             identifier
+)                 single char operator
+;                 single char operator
 
 

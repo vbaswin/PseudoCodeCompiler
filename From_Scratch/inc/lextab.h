@@ -3,11 +3,11 @@
 #include "basic.h"
 
 struct table {
-	char name[25];
-	char type[25];
+	char name[100];
+	char type[100];
 };
 
-extern struct table lextab[100];
+extern struct table lextab[10000];
 void insert_to_lextab(char *, char *);
 void print_lextab();
 extern int ind;

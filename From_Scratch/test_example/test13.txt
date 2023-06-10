@@ -1,6 +1,10 @@
+i = 20;
+
 while a + 3 do 
 	a = a -1,
 	while m do 
 		i = i * 2
 	end while
 end while;
+
+print(i);

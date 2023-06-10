@@ -2,7 +2,7 @@
 #include "../inc/cwd.h"
 
 int cur = 0;
-struct symbol symtab[100];
+struct symbol symtab[1000];
 
 struct symbol *
 lookup(char *sym) {
