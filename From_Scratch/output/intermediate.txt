@@ -1,10 +1,39 @@
-l1:
-if i < 10 goto l2
-goto l3
-l2:
-r1 = i + 1
+r1 = 11
 i = r1
-goto l1
+
+
+r2 = i < 10
+if r2 goto l1
+r3 = 1
+j = r3
 l3:
+r4 = j < 5
+if r4 goto l4
+goto l5
+l4:
+l6:
+if k < 3 goto l7
+goto l8
+l7:
+r5 = k < 2
+if r5 goto l9
+goto l10
+l9:
+r6 = 100
+z = r6
+l10
+r7 = k + 1
+k = r7
+goto l6
+l8:
+r8 = j + 1
+j = r8
+goto l3
+l5:
+goto l2
+l1:
+r9 = i + 1
+i = r9
+l2
 
 

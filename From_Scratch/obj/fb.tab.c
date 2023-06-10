@@ -72,13 +72,10 @@
 #include "../inc/fb.h"
 #include "../inc/symtab.h"
 #include "../inc/ast.h"
-#include "../inc/eval.h"
-#include "../inc/intermediate.h"
 #include "../inc/cwd.h"
 
-void writeOutput(double);
 
-#line 82 "obj/fb.tab.c"
+#line 79 "obj/fb.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -501,9 +498,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    46,    46,    47,    50,    51,    52,    53,    54,    57,
-      58,    63,    67,    68,    69,    70,    71,    72,    73,    74,
-      75,    76,    77,    78
+       0,    43,    43,    44,    47,    48,    49,    50,    51,    54,
+      55,    60,    64,    65,    66,    67,    68,    69,    70,    71,
+      72,    73,    74,    75
 };
 #endif
 
@@ -1585,131 +1582,131 @@ yyreduce:
     switch (yyn)
       {
   case 3: /* prog: prog stmt ';'  */
-#line 47 "src/fb.y"
-                        { displayAstHandle((yyvsp[-1].a)); intermediateCodeHandle((yyvsp[-1].a)); displayEvalHandle((yyvsp[-1].a));}
-#line 1591 "obj/fb.tab.c"
+#line 44 "src/fb.y"
+                        { Evaluate((yyvsp[-1].a)); }
+#line 1588 "obj/fb.tab.c"
     break;
 
   case 4: /* stmt: IF exp THEN stmts END IF  */
-#line 50 "src/fb.y"
+#line 47 "src/fb.y"
                                                         { (yyval.a) = newIf('I', (yyvsp[-4].a), (yyvsp[-2].a), NULL, NULL); }
-#line 1597 "obj/fb.tab.c"
+#line 1594 "obj/fb.tab.c"
     break;
 
   case 5: /* stmt: IF exp THEN stmts ELSE stmts END IF  */
-#line 51 "src/fb.y"
+#line 48 "src/fb.y"
                                                 { (yyval.a) = newIf('I', (yyvsp[-6].a), (yyvsp[-4].a),NULL, (yyvsp[-2].a));}
-#line 1603 "obj/fb.tab.c"
+#line 1600 "obj/fb.tab.c"
     break;
 
   case 6: /* stmt: WHILE exp DO stmts END WHILE  */
-#line 52 "src/fb.y"
+#line 49 "src/fb.y"
                                                         { (yyval.a) = newWh('W', (yyvsp[-4].a), (yyvsp[-2].a)); }
-#line 1609 "obj/fb.tab.c"
+#line 1606 "obj/fb.tab.c"
     break;
 
   case 7: /* stmt: FOR NAME '=' exp TO exp DO stmts END FOR  */
-#line 53 "src/fb.y"
+#line 50 "src/fb.y"
                                                    { (yyval.a) = newFor('F', newref((yyvsp[-8].s)), (yyvsp[-6].a), (yyvsp[-4].a), (yyvsp[-2].a)); }
-#line 1615 "obj/fb.tab.c"
+#line 1612 "obj/fb.tab.c"
     break;
 
   case 9: /* stmts: %empty  */
-#line 57 "src/fb.y"
+#line 54 "src/fb.y"
        {(yyval.a) = NULL; }
-#line 1621 "obj/fb.tab.c"
+#line 1618 "obj/fb.tab.c"
     break;
 
   case 10: /* stmts: stmt ',' stmts  */
-#line 58 "src/fb.y"
+#line 55 "src/fb.y"
                          { if ((yyvsp[0].a) == NULL)
 							(yyval.a) = (yyvsp[-2].a);
 						else 
 							(yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a));
 					}
-#line 1631 "obj/fb.tab.c"
+#line 1628 "obj/fb.tab.c"
     break;
 
   case 11: /* stmts: stmt  */
-#line 63 "src/fb.y"
+#line 60 "src/fb.y"
                                 { (yyval.a) = (yyvsp[0].a);}
-#line 1637 "obj/fb.tab.c"
+#line 1634 "obj/fb.tab.c"
     break;
 
   case 12: /* exp: PRINT '(' exp ')'  */
-#line 67 "src/fb.y"
+#line 64 "src/fb.y"
                           { (yyval.a) = newast('P', (yyvsp[-1].a), NULL); }
-#line 1643 "obj/fb.tab.c"
+#line 1640 "obj/fb.tab.c"
     break;
 
   case 13: /* exp: exp CMP exp  */
-#line 68 "src/fb.y"
+#line 65 "src/fb.y"
                         { (yyval.a) = newcmp((yyvsp[-1].fn), (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1649 "obj/fb.tab.c"
+#line 1646 "obj/fb.tab.c"
     break;
 
   case 14: /* exp: exp '+' exp  */
-#line 69 "src/fb.y"
+#line 66 "src/fb.y"
                                 { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a));}
-#line 1655 "obj/fb.tab.c"
+#line 1652 "obj/fb.tab.c"
     break;
 
   case 15: /* exp: exp '-' exp  */
-#line 70 "src/fb.y"
+#line 67 "src/fb.y"
                                 { (yyval.a) = newast('-', (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1661 "obj/fb.tab.c"
+#line 1658 "obj/fb.tab.c"
     break;
 
   case 16: /* exp: exp '*' exp  */
-#line 71 "src/fb.y"
+#line 68 "src/fb.y"
                                 { (yyval.a) = newast('*', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1667 "obj/fb.tab.c"
+#line 1664 "obj/fb.tab.c"
     break;
 
   case 17: /* exp: exp '/' exp  */
-#line 72 "src/fb.y"
+#line 69 "src/fb.y"
                                 { (yyval.a) = newast('/', (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1673 "obj/fb.tab.c"
+#line 1670 "obj/fb.tab.c"
     break;
 
   case 18: /* exp: '(' exp ')'  */
-#line 73 "src/fb.y"
+#line 70 "src/fb.y"
                                 { (yyval.a) = (yyvsp[-1].a); }
-#line 1679 "obj/fb.tab.c"
+#line 1676 "obj/fb.tab.c"
     break;
 
   case 19: /* exp: '-' exp  */
-#line 74 "src/fb.y"
+#line 71 "src/fb.y"
                                 { (yyval.a) = newast('M', (yyvsp[0].a), NULL); }
-#line 1685 "obj/fb.tab.c"
+#line 1682 "obj/fb.tab.c"
     break;
 
   case 20: /* exp: NUM  */
-#line 75 "src/fb.y"
+#line 72 "src/fb.y"
                                 { (yyval.a) = newnum((yyvsp[0].d)); }
-#line 1691 "obj/fb.tab.c"
+#line 1688 "obj/fb.tab.c"
     break;
 
   case 21: /* exp: NAME  */
-#line 76 "src/fb.y"
+#line 73 "src/fb.y"
                                                 { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1697 "obj/fb.tab.c"
+#line 1694 "obj/fb.tab.c"
     break;
 
   case 22: /* exp: STRING  */
-#line 77 "src/fb.y"
+#line 74 "src/fb.y"
                                                 { (yyval.a) = newStr('S',(yyvsp[0].str)); }
-#line 1703 "obj/fb.tab.c"
+#line 1700 "obj/fb.tab.c"
     break;
 
   case 23: /* exp: NAME '=' exp  */
-#line 78 "src/fb.y"
+#line 75 "src/fb.y"
                                         { (yyval.a) = newasgn(newref((yyvsp[-2].s)), (yyvsp[0].a)); }
-#line 1709 "obj/fb.tab.c"
+#line 1706 "obj/fb.tab.c"
     break;
 
 
-#line 1713 "obj/fb.tab.c"
+#line 1710 "obj/fb.tab.c"
 
         default: break;
       }
@@ -1944,20 +1941,5 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 81 "src/fb.y"
+#line 78 "src/fb.y"
 
-
-void writeOutput(double d) {
-	char completePath[500];
-	getCompletePath(completePath, "/output/output.txt");
-
-	FILE *fp = fopen(completePath, "a+");
-
-	if (fp == NULL) {
-		printf("Error opening the file.\n");
-		return;
-	}
-
-	fprintf(fp, "> %4.6g\n", d); 
-	fclose(fp);
-}

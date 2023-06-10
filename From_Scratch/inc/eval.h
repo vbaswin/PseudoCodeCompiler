@@ -5,5 +5,6 @@
 
 void displayAstHandle(struct ast *);
 void displayEvalHandle(struct ast *a);
+void freeAst(struct ast *a);
 
 #endif

@@ -1,10 +1,56 @@
-For
-    =
+=
+    ref i
+    number   11
+
+
+if
+    binop <
         ref i
-        number    0
-    number    0
-    number   10
-    print
-        string "Hello World!"
+        number   10
+    binop L
+        =
+            ref i
+            binop +
+                ref i
+                number    1
+        print
+            ref i
+else
+    binop L
+        =
+            ref j
+            number    1
+        While
+            binop <
+                ref j
+                number    5
+            binop L
+                print
+                    ref j
+                binop L
+                    For
+                        =
+                            ref k
+                            number    0
+                        number    0
+                        number    3
+                        binop L
+                            print
+                                ref k
+                            if
+                                binop <
+                                    ref k
+                                    number    2
+                                binop L
+                                    =
+                                        ref z
+                                        number  100
+                                    print
+                                        ref z
+                    =
+                        ref j
+                        binop +
+                            ref j
+                            number    1
 
 

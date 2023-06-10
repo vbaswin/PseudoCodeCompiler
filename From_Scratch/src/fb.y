@@ -5,11 +5,8 @@
 #include "../inc/fb.h"
 #include "../inc/symtab.h"
 #include "../inc/ast.h"
-#include "../inc/eval.h"
-#include "../inc/intermediate.h"
 #include "../inc/cwd.h"
 
-void writeOutput(double);
 %}
 
 %union {
@@ -44,7 +41,7 @@ void writeOutput(double);
 %%
 
 prog:
-	| prog stmt ';' { displayAstHandle($2); intermediateCodeHandle($2); displayEvalHandle($2);}
+	| prog stmt ';' { Evaluate($2); }
 	;
 	
 stmt: IF exp THEN stmts END IF 				{ $$ = newIf('I', $2, $4, NULL, NULL); }
@@ -79,18 +76,3 @@ exp:
    ;
 
 %%
-
-void writeOutput(double d) {
-	char completePath[500];
-	getCompletePath(completePath, "/output/output.txt");
-
-	FILE *fp = fopen(completePath, "a+");
-
-	if (fp == NULL) {
-		printf("Error opening the file.\n");
-		return;
-	}
-
-	fprintf(fp, "> %4.6g\n", d); 
-	fclose(fp);
-}

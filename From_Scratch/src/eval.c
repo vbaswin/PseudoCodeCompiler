@@ -249,6 +249,77 @@ void displayEvalHandle(struct ast *a) {
 	fclose(fp);
 }
 
+void freeAst(struct ast *a) {
+	if (!a)
+		return;
+
+	switch (a->nodetype) {
+	case 'K':
+	case 'N':
+	case 'S':
+		break;
+
+
+	case '=':
+		freeAst(((struct symasgn *)a)->s);
+		freeAst(((struct symasgn *)a)->v);
+		break;
+
+	case '+':
+	case '-':
+	case '*':
+	case '/':
+	case 'L':
+	case '1':
+	case '2':
+	case '3':
+	case '4':
+	case '5':
+	case '6':
+		freeAst(a->l);
+		freeAst(a->r);
+		break;
+
+	case 'M':
+		freeAst(a->l);
+		break;
+
+
+	case 'I':
+		if (((struct astIf *)a)->cond)
+			freeAst(((struct astIf *)a)->cond);
+		if (((struct astIf *)a)->tl)
+			freeAst(((struct astIf *)a)->tl);
+		if (((struct astIf *)a)->elif)
+			freeAst(((struct astIf *)a)->elif);
+		if (((struct astIf *)a)->el) {
+			freeAst(((struct astIf *)a)->el);
+		}
+		break;
+
+	case 'W':
+		freeAst(((struct astWh *)a)->cond);
+		if (((struct astWh *)a)->tl)
+			freeAst(((struct astWh *)a)->tl);
+		break;
+
+	case 'F':
+		freeAst(((struct astFor *)a)->name);
+		freeAst(((struct astFor *)a)->exp1);
+		freeAst(((struct astFor *)a)->exp2);
+		if (((struct astFor *)a)->tl)
+			freeAst(((struct astFor *)a)->tl);
+		break;
+	case 'P':
+		freeAst(a->l);
+		break;
+
+	default:
+		break;
+	}
+	free(a);
+}
+
 char *trimQuotes(char *s) {
 	char *temp = strdup(s);
 	for (int i = 1, j = 0; i < strlen(s) - 1; ++i, ++j)

@@ -1,12 +1,28 @@
->	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
-	Hello World!
+>
+
+>	   1
+	   0
+	 100
+	   1
+	 100
+	   2
+	   2
+	   0
+	 100
+	   1
+	 100
+	   2
+	   3
+	   0
+	 100
+	   1
+	 100
+	   2
+	   4
+	   0
+	 100
+	   1
+	 100
+	   2
 
 
