@@ -8,9 +8,3 @@ goto l1
 l3:
 
 
-r2 = 100
-aswin = r2
-
-
-
-

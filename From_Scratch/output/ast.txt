@@ -5,15 +5,6 @@ For
     number    0
     number   10
     print
-        string "Hello World!"
-
-
-=
-    ref aswin
-    number  100
-
-
-print
-    ref aswin
+        string "hello"
 
 
